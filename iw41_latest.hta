@@ -1,0 +1,2363 @@
+<html>
+<head>
+<title>Gerador Script SAP</title>
+<meta charset="UTF-8">
+
+<hta:application
+    id="GeradorIW41"
+    applicationname="Gerador IW41 v1.4"
+    border="dialog"
+    caption="yes"
+    showintaskbar="yes"
+    singleinstance="yes"
+    sysmenu="yes"
+    maximizebutton="yes"
+    minimizebutton="yes"
+    scroll="yes"
+/>
+
+<style>
+
+/* ===== FIX GLOBAL HTA ===== */
+* {
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Consolas,"Courier New",monospace;
+    background:#000;
+    color:#00ff66;
+    margin:20px;
+    font-size:14px;
+    letter-spacing: 0.3px;
+    line-height: 1.5;
+}
+
+h1{
+    font-size:20px;
+    margin-bottom:15px;
+}
+
+fieldset{
+    border:1px solid #00ff66;
+    padding:10px;
+    margin-bottom:15px;
+}
+
+legend{
+    font-size:22px;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+}
+
+label{
+    display:inline-block;
+    width:180px;
+    margin-bottom:6px;
+    font-weight:600;
+}
+
+label.radio,
+label.checkbox{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:15px;
+}
+
+input,
+textarea,
+select{
+    background:#000;
+    color:#fff;
+    font-weight:bold;
+    border:1px solid #00ff66;
+    padding:4px;
+    width:220px;
+    font-size:14px;
+}
+
+textarea{
+    width:320px;
+    height:80px;
+}
+
+input[type="radio"],
+input[type="checkbox"]{
+    accent-color:#00ff66;
+}
+
+button{
+    background:#000;
+    color:#00ff66;
+    border:1px solid #00ff66;
+    padding:6px 14px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#00ff66;
+    color:#000;
+}
+
+table{
+    border-collapse:collapse;
+    margin-top:8px;
+}
+
+table th,
+table td{
+    border:1px solid #00ff66;
+    padding:4px 6px;
+    vertical-align: middle;
+}
+
+.hidden{display:none;}
+
+.contador{
+    font-size:11px;
+    text-align:right;
+}
+
+.contador.limite{
+    color:#ff3333;
+    font-weight:bold;
+}
+
+/* ===== FOCO / ERRO SEM ALTERAR ALTURA ===== */
+
+.foco{
+    border:1px solid #00aaff !important;
+    box-shadow: inset 0 0 6px rgba(0,170,255,0.4);
+}
+
+.erro{
+    border:1px solid #ff3333 !important;
+    box-shadow: inset 0 0 6px rgba(255,51,51,0.4);
+    background:#220000 !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    outline:none;
+}
+
+/* ================= TEMA SAP ================= */
+
+.theme-sap{
+    background:#f2f2f2;
+    color:#000;
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+}
+
+.theme-sap fieldset{
+    border:1px solid #9e9e9e;
+    background:#ffffff;
+}
+
+.theme-sap legend{
+    color:#0a3d91;
+}
+
+.theme-sap input,
+.theme-sap select,
+.theme-sap textarea{
+    background:#ffffff;
+    color:#000;
+    border:1px solid #7f7f7f;
+}
+
+.theme-sap button{
+    background:#e6e6e6;
+    color:#000;
+    border:1px solid #7f7f7f;
+}
+
+.theme-sap button:hover{
+    background:#d0d0d0;
+}
+
+.theme-sap table th{
+    background:#e8edf3;
+    color:#000;
+}
+
+.theme-sap table td{
+    background:#ffffff;
+}
+
+/* ================= TEMA MODERN ================= */
+
+.theme-modern{
+    background:#0f172a;
+    color:#e2e8f0;
+    font-family:"Inter","Segoe UI",sans-serif;
+}
+
+/* ===== LEGEND ERP HEADER ===== */
+
+.theme-modern fieldset{
+    position: relative;
+    padding: 35px 20px 20px 20px;
+    margin-bottom: 20px;
+    border: none !important;
+    background: #1e293b;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.theme-modern legend{
+    position: absolute;
+    top: 8px;
+    left: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #3b82f6;
+    letter-spacing: 0.5px;
+}
+
+
+.theme-modern input,
+.theme-modern select,
+.theme-modern textarea{
+    background:#0f172a;
+    border:1px solid #334155;
+    border-radius:8px;
+    color:#e2e8f0;
+    padding:8px;
+    transition:0.2s ease;
+}
+
+.theme-modern input:focus,
+.theme-modern select:focus,
+.theme-modern textarea:focus{
+    border:1px solid #3b82f6;
+    box-shadow: inset 0 0 6px rgba(59,130,246,0.4);
+}
+
+.theme-modern table{
+    border-collapse: collapse;
+}
+
+.theme-modern table th,
+.theme-modern table td{
+    border: none !important;
+}
+
+.theme-modern table th,
+.theme-modern table td{
+    border:none;
+    padding:6px 8px;
+    vertical-align: middle;
+}
+
+.theme-modern table tr{
+    border-bottom:1px solid #334155;
+    height:42px;
+}
+
+.theme-modern table input{
+    height:32px;
+    padding:4px 6px;
+}
+
+/* ================= APP BETA ================= */
+
+.app-beta{
+    background:#0b1220;
+    font-family:"Inter","Segoe UI",sans-serif;
+}
+
+.app-beta fieldset{
+    border:none;
+    background:#111827;
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:24px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.app-beta input,
+.app-beta select,
+.app-beta textarea{
+    background:#0f172a;
+    border:1px solid #334155;
+    border-radius:10px;
+    padding:10px;
+    width:100%;
+}
+
+.app-beta table td,
+.app-beta table th{
+    vertical-align: middle;
+}
+
+#appSidebar{
+    display:none;
+}
+
+/* ===== FIX MICRO SHIFT DEFINITIVO HTA ===== */
+
+input,
+select,
+textarea{
+    height: 32px;
+    line-height: 32px;
+    display: block;
+}
+
+textarea{
+    height: 80px;
+    line-height: 1.4;
+}
+
+table td{
+    vertical-align: middle;
+}
+
+label{
+    vertical-align: middle;
+}
+
+/* ===== PERSONALIZACAO FULL WIDTH CONTROLADA ===== */
+
+#tabelaEletrica table{
+    width: 80%;
+}
+
+#tabelaEletrica th:nth-child(1),
+#tabelaEletrica td:nth-child(1){
+    width: 70px;
+    text-align:center;
+}
+
+#tabelaEletrica th:nth-child(2),
+#tabelaEletrica td:nth-child(2){
+    width: 100px;
+    text-align:center;
+}
+
+#tabelaEletrica th:nth-child(3),
+#tabelaEletrica td:nth-child(3){
+    width: auto;
+}
+
+/* sobrescreve o width:220px somente na tabela */
+#tabelaEletrica input{
+    width: 100%;
+}
+
+/* ===== EXPANDIR INPUT TEXTO PERSONALIZADO ===== */
+
+#tabelaEletrica td:nth-child(3) input{
+    width: 100% !important;
+    display: block;
+}
+
+#tabelaEletrica td:nth-child(3){
+    padding-right: 10px;
+}
+
+#tabelaEletrica .contador{
+    text-align: right;
+    width: 100%;
+}
+
+
+/* ===== EXPANDIR INPUT TEXTO PERSONALIZADO ===== */
+
+#tabelaEletrica td:nth-child(3) input{
+    width: 100% !important;
+    display: block;
+}
+
+#tabelaEletrica td:nth-child(3){
+    padding-right: 10px;
+}
+
+#tabelaEletrica .contador{
+    text-align: right;
+    width: 100%;
+}
+
+
+/* ===== TABELA ERP INDUSTRIAL ===== */
+
+.tabela-erp{
+    width:100%;
+    table-layout:fixed;
+    border-collapse:collapse;
+    font-size:13px;
+}
+
+.tabela-erp th{
+    font-weight:600;
+    text-align:left;
+    padding:6px 8px;
+    border-bottom:1px solid #00ff66;
+}
+
+.tabela-erp td{
+    padding:4px 8px;
+    vertical-align:middle;
+    border-bottom:1px solid rgba(0,255,102,0.3);
+}
+
+/* COLUNAS */
+
+.col-tarefa{
+    width:60px;
+    text-align:center;
+}
+
+.col-dur{
+    width:80px;
+    text-align:center;
+}
+
+.col-texto{
+    width:auto;
+}
+
+/* INPUTS */
+
+.tabela-erp input{
+    width:100%;
+    height:26px;
+    padding:2px 6px;
+    font-size:13px;
+}
+
+/* CONTADOR */
+
+.tabela-erp .contador{
+    font-size:10px;
+    text-align:right;
+    margin-top:2px;
+    opacity:0.7;
+}
+
+
+
+
+</style>
+
+
+</head>
+
+<body class="theme-matrix" oncontextmenu="return false;">
+
+<div id="appSidebar">
+    <div class="sidebar-title">IW41</div>
+
+    <div class="sidebar-item" onclick="scrollToSection(0)">Dados</div>
+    <div class="sidebar-item" onclick="scrollToSection(1)">Ordens</div>
+    <div class="sidebar-item" onclick="scrollToSection(2)">Tarefas</div>
+    <div class="sidebar-item" onclick="scrollToSection(3)">Personaliza  o</div>
+    <div class="sidebar-item" onclick="scrollToSection(4)">Resumo</div>
+</div>
+
+<div id="appContainer">
+
+<button id="btnTema" onclick="alternarTema();" 
+style="position:fixed; top:10px; right:10px; font-size:11px; padding:4px 8px; z-index:9999; opacity:0.7;">
+Tema SAP
+</button>
+
+<button id="btnAppBeta"
+        class="top-button"
+        onclick="alternarAppBeta()"
+        style="display:none;">
+    APP BETA
+</button>
+
+<h1>Gerador de Script SAP</h1>
+
+<!-- ================= DADOS GERAIS ================= -->
+<fieldset>
+<legend>1. Dados Gerais</legend>
+
+<label>Data inicial:</label>
+<input type="text" id="dataInicial" placeholder="DDMMAAAA" maxlength="10"><br>
+
+<label>Hora inicial:</label>
+<input type="text" id="horaInicial" placeholder="HHMM" maxlength="5"><br>
+
+<label>Centro de trabalho:</label>
+<select id="centroTrabalho">
+    <option value="">-- selecione --</option>
+    <option value="UTLME005">Carlos</option>
+    <option value="UTLME008">Fernando</option>
+    <option value="UTLEM002">Genuino</option>
+    <option value="UTLRE007">Patrick</option>
+</select>
+</fieldset>
+
+<!-- ================= ORDENS ================= -->
+<fieldset>
+<legend>2. Ordens</legend>
+
+<label class="radio">
+<input type="radio" name="modoOrdem" id="modoSeq" checked>
+Sequencial
+</label>
+
+<label class="radio" style="margin-left:20px;">
+<input type="radio" name="modoOrdem" id="modoManual">
+Manual
+</label><br><br>
+
+<div id="areaSeq">
+<label>Ordem inicial:</label>
+<input type="text" id="ordemInicial" maxlength="8"><br>
+
+<label>Ordem final:</label>
+<input type="text" id="ordemFinal" maxlength="8">
+</div>
+
+<div id="areaManual" class="hidden">
+<label>Ordens manuais:</label><br>
+<div id="listaManual"></div>
+<button type="button" onclick="adicionarLinhaOrdem()">+</button>
+</div>
+</fieldset>
+
+<!-- ================= TAREFAS ================= -->
+<fieldset>
+<legend>3. Tarefas</legend>
+
+<label class="radio">
+<input type="radio" name="modoTarefa" id="modoTradicional" checked>
+Modo Tradicional (Duração por tarefa)
+</label>
+
+<label class="radio" style="margin-left:20px;">
+<input type="radio" name="modoTarefa" id="modoRandom">
+Modo Random (Tempo total da ordem)
+</label>
+
+<br><br>
+
+<label class="checkbox hidden" id="areaDebug">
+<input type="checkbox" id="debugSAP">
+Debug SAP (abrir IW41 e parar na T1)
+</label>
+
+
+<br><br>
+
+<label>Total de tarefas:</label>
+<input type="text" id="totalTarefas" maxlength="2"><br>
+
+<label id="labelDuracao">Duração por tarefa (MIN):</label>
+<input type="text" id="duracaoPadrao" maxlength="3">
+
+</fieldset>
+
+<!-- ================= PERSONALIZACAO ================= -->
+<fieldset>
+<legend>4. Personalizacao</legend>
+
+<label class="checkbox">
+<input type="checkbox" id="ordemEletrica">
+Personalizar duração e texto por tarefa
+</label>
+
+<div id="areaEletrica" class="hidden">
+<div id="tabelaEletrica"></div>
+</div>
+</fieldset>
+
+<!-- ================= RESUMO ================= -->
+<fieldset id="resumoFinal" class="hidden">
+    <legend>Resumo do Apontamento</legend>
+    <pre id="textoResumo" style="white-space:pre-wrap;"></pre>
+</fieldset>
+
+
+<div class="footer-bar">
+    <button id="btnGerar" onclick="gerarVBS()">GERAR SCRIPT</button>
+
+    <button id="btnExecutar"
+            onclick="executarApontamento()"
+            style="display:none;">
+        EXECUTAR APONTAMENTO
+    </button>
+
+    <button id="btnResetRandom"
+            style="display:none;"
+            onclick="resetRandom()">
+        RESET RANDOM
+    </button>
+
+    <button id="btnNovo"
+            onclick="novoApontamento()"
+            disabled>
+        NOVO APONTAMENTO
+    </button>
+</div>
+
+</div>
+
+
+
+
+<script language="javascript">
+
+<!-- ===== ASSINATURA DE INTEGRIDADE 26-02-2026 ===== -->
+var __IW41_SIGNATURE__ = "IW41_BASE_V1_7_CONGELADA_OK";
+var modoDev = false;
+var btnAppBeta;
+var btnTema;
+var contadorCliqueDev = 0;
+var VERSAO_APP = "1.7.11";
+var URL_VERSAO = "https://iw41app.netlify.app/version.txt";
+var URL_HTA    = "https://iw41app.netlify.app/iw41_latest.hta";
+
+function scrollToSection(index){
+
+    var sections = document.getElementsByTagName("fieldset");
+
+    if(sections[index]){
+        sections[index].scrollIntoView();
+    }
+}
+
+function ativarModoDev(){
+
+    var senha = prompt("Modo Desenvolvedor\nDigite a senha:");
+
+    if(senha === "slim_crazy99"){
+
+        modoDev = true;
+
+        // Mostra Debug SAP
+        document.getElementById("areaDebug").className = "checkbox";
+
+        // Mostra bot o APP BETA
+        btnAppBeta.style.display = "inline-block";
+
+        alert("Modo Desenvolvedor ativado.");
+
+    }else{
+        alert("Senha incorreta.");
+    }
+}
+
+
+function alternarAppBeta(){
+
+    if(!modoDev){
+        return;
+    }
+
+    var body = document.body;
+    var atual = body.className;
+
+    if(atual.indexOf("app-beta") !== -1){
+
+        // Remove app-beta
+        atual = atual.replace("app-beta", "");
+        atual = atual.replace("  ", " "); // remove espa o duplo
+
+        body.className = atual;
+
+        btnAppBeta.innerText = "APP BETA";
+
+    }else{
+
+        if(atual === ""){
+            body.className = "app-beta";
+        }else{
+            body.className = atual + " app-beta";
+        }
+
+        btnAppBeta.innerText = "SAIR APP";
+    }
+}
+
+function desativarModoDev(){
+
+    modoDev = false;
+
+    var atual = document.body.className;
+
+    if(atual.indexOf("app-beta") !== -1){
+        atual = atual.replace("app-beta", "");
+        atual = atual.replace("  ", " ");
+        document.body.className = atual;
+    }
+
+    btnAppBeta.style.display = "none";
+    btnAppBeta.innerText = "APP BETA";
+
+    document.getElementById("areaDebug").className = "hidden";
+
+    alert("Modo Desenvolvedor desativado.");
+}
+
+function alternarTema(){
+
+    var atual = document.body.className;
+
+    var novoTema = "";
+
+    if(atual.indexOf("theme-matrix") !== -1){
+        novoTema = "theme-sap";
+        btnTema.innerText = "Tema Modern";
+    }
+    else if(atual.indexOf("theme-sap") !== -1){
+        novoTema = "theme-modern";
+        btnTema.innerText = "Tema Matrix";
+    }
+    else{
+        novoTema = "theme-matrix";
+        btnTema.innerText = "Tema SAP";
+    }
+
+    document.body.className = novoTema;
+
+    salvarConfig();
+}
+
+function obterPastaHTA(){
+    var caminho = obterCaminhoHTA();
+    return caminho.substring(0, caminho.lastIndexOf("\\")+1);
+}
+
+function salvarConfig(){
+
+    try{
+        var fso = new ActiveXObject("Scripting.FileSystemObject");
+        var pasta = obterPastaHTA();
+        var caminhoINI = pasta + "IW41.config.ini";
+
+        var arquivo = fso.CreateTextFile(caminhoINI, true);
+
+        arquivo.WriteLine("TEMA=" + document.body.className);
+        arquivo.WriteLine("CENTRO=" + centroTrabalho.value);
+        arquivo.WriteLine("MODO=" + (modoManual.checked ? "MANUAL" : "SEQUENCIAL"));
+
+        arquivo.Close();
+
+    }catch(e){}
+}
+
+
+function carregarConfig(){
+
+    try{
+        var fso = new ActiveXObject("Scripting.FileSystemObject");
+        var pasta = obterPastaHTA();
+        var caminhoINI = pasta + "IW41.config.ini";
+
+        if(!fso.FileExists(caminhoINI)){
+            aplicarPadrao();
+            return;
+        }
+
+        var arquivo = fso.OpenTextFile(caminhoINI, 1);
+        var conteudo = arquivo.ReadAll();
+        arquivo.Close();
+
+        var linhas = conteudo.split("\n");
+
+        for(var i=0;i<linhas.length;i++){
+
+            var linha = linhas[i].replace("\r","");
+
+            if(linha.indexOf("TEMA=") === 0){
+                document.body.className = linha.replace("TEMA=","");
+            }
+
+            if(linha.indexOf("CENTRO=") === 0){
+                centroTrabalho.value = linha.replace("CENTRO=","");
+            }
+
+            if(linha.indexOf("MODO=") === 0){
+                var modo = linha.replace("MODO=","");
+
+                if(modo === "MANUAL"){
+                    modoManual.checked = true;
+                    modoSeq.checked = false;
+                    areaSeq.className = "hidden";
+                    areaManual.className = "";
+                }else{
+                    modoSeq.checked = true;
+                    modoManual.checked = false;
+                    areaSeq.className = "";
+                    areaManual.className = "hidden";
+                }
+            }
+        }
+
+    }catch(e){
+        aplicarPadrao();
+    }
+}
+
+function verificarAtualizacao(){
+
+    try{
+
+        var xhr = new ActiveXObject("WinHttp.WinHttpRequest.5.1");
+        xhr.Open("GET", URL_VERSAO + "?t=" + new Date().getTime(), false);
+        xhr.Send();
+
+        if(xhr.Status !== 200){
+            return;
+        }
+
+        var versaoOnline = xhr.ResponseText.replace(/\s/g,"");
+
+        if(versaoOnline !== VERSAO_APP){
+
+            var confirmar = confirm(
+                "Nova versão disponível: v" + versaoOnline +
+                "\nVersão atual: v" + VERSAO_APP +
+                "\n\nDeseja atualizar agora?"
+            );
+
+            if(confirmar){
+                baixarAtualizacao();
+            }
+        }
+
+    }catch(e){
+        // silencioso
+    }
+}
+
+function obterCaminhoHTA(){
+    var caminho = decodeURIComponent(location.pathname || "");
+
+    if(location.href && location.href.indexOf("file:///") === 0){
+        caminho = decodeURIComponent(location.href.replace("file:///", ""));
+    }
+
+    caminho = caminho.replace(/\//g,"\\");
+
+    if(/^[\\\/][A-Za-z]:\\/.test(caminho)){
+        caminho = caminho.substring(1);
+    }
+
+    return caminho;
+}
+
+function limparTemporariosAtualizacao(){
+    try{
+        var pasta = obterPastaHTA();
+        var fso = new ActiveXObject("Scripting.FileSystemObject");
+        var shell = new ActiveXObject("WScript.Shell");
+        var arquivos = [
+            pasta + "IW41_update.hta",
+            pasta + "IW41_backup_pre_update.hta",
+            pasta + "baixar_update_tmp.ps1",
+            pasta + "atualizador_tmp.vbs"
+        ];
+        var i;
+
+        for(i = 0; i < arquivos.length; i++){
+            if(fso.FileExists(arquivos[i])){
+                try{
+                    fso.DeleteFile(arquivos[i], true);
+                }catch(ex){
+                    shell.Run('cmd /c ping 127.0.0.1 -n 4 > nul & del /f /q "' + arquivos[i] + '"', 0, false);
+                }
+            }
+        }
+    }catch(e){}
+}
+
+function baixarAtualizacao(){
+
+    try{
+
+        var pasta         = obterPastaHTA();
+        var caminhoAtual  = obterCaminhoHTA();
+        var caminhoNovo   = pasta + "IW41_update.hta";
+        var caminhoVBS    = pasta + "atualizador_tmp.vbs";
+        var caminhoPS1    = pasta + "baixar_update_tmp.ps1";
+        var caminhoLog    = pasta + "update_log.txt";
+        var caminhoBackup = pasta + "IW41_backup_pre_update.hta";
+        var shell         = new ActiveXObject("WScript.Shell");
+        var fso           = new ActiveXObject("Scripting.FileSystemObject");
+        var log;
+
+        if(fso.FileExists(caminhoLog)){
+            fso.DeleteFile(caminhoLog, true);
+        }
+
+        log = fso.CreateTextFile(caminhoLog, true);
+        log.WriteLine("===== INICIO UPDATE =====");
+        log.WriteLine("DATA/HORA: " + new Date());
+        log.WriteLine("caminhoAtual: " + caminhoAtual);
+        log.WriteLine("caminhoNovo: " + caminhoNovo);
+        log.WriteLine("caminhoVBS: " + caminhoVBS);
+        log.WriteLine("caminhoPS1: " + caminhoPS1);
+        log.WriteLine("caminhoBackup: " + caminhoBackup);
+        log.Close();
+
+        if(fso.FileExists(caminhoNovo)){
+            fso.DeleteFile(caminhoNovo, true);
+        }
+
+        if(fso.FileExists(caminhoBackup)){
+            fso.DeleteFile(caminhoBackup, true);
+        }
+
+        var ps1 = fso.CreateTextFile(caminhoPS1, true);
+        ps1.WriteLine('$ProgressPreference = "SilentlyContinue"');
+        ps1.WriteLine('try {');
+        ps1.WriteLine('    Invoke-WebRequest -UseBasicParsing -Uri "' + URL_HTA + '" -OutFile "' + caminhoNovo + '" -ErrorAction Stop');
+        ps1.WriteLine('    exit 0');
+        ps1.WriteLine('} catch {');
+        ps1.WriteLine('    exit 1');
+        ps1.WriteLine('}');
+        ps1.Close();
+
+        log = fso.OpenTextFile(caminhoLog, 8, true);
+        log.WriteLine("ps1 criado");
+        log.Close();
+
+        var comando = 'powershell.exe -NoProfile -ExecutionPolicy Bypass -File "' + caminhoPS1 + '"';
+
+        log = fso.OpenTextFile(caminhoLog, 8, true);
+        log.WriteLine("comando powershell:");
+        log.WriteLine(comando);
+        log.WriteLine("antes do shell.Run");
+        log.Close();
+
+        var rc = shell.Run(comando, 0, true);
+
+        log = fso.OpenTextFile(caminhoLog, 8, true);
+        log.WriteLine("depois do shell.Run");
+        log.WriteLine("retorno powershell: " + rc);
+        log.WriteLine("arquivo novo existe apos download: " + fso.FileExists(caminhoNovo));
+        log.Close();
+
+        if(fso.FileExists(caminhoPS1)){
+            fso.DeleteFile(caminhoPS1, true);
+        }
+
+        if(rc !== 0 || !fso.FileExists(caminhoNovo)){
+            alert("Falha ao baixar a nova versão.\nVeja update_log.txt");
+            return;
+        }
+
+        var vbs = fso.CreateTextFile(caminhoVBS, true);
+        vbs.WriteLine('On Error Resume Next');
+        vbs.WriteLine('Set fso = CreateObject("Scripting.FileSystemObject")');
+        vbs.WriteLine('Set sh = CreateObject("WScript.Shell")');
+        vbs.WriteLine('logPath = "' + caminhoLog + '"');
+        vbs.WriteLine('htaAtual = "' + caminhoAtual + '"');
+        vbs.WriteLine('htaNovo = "' + caminhoNovo + '"');
+        vbs.WriteLine('htaBackup = "' + caminhoBackup + '"');
+        vbs.WriteLine('meuScript = WScript.ScriptFullName');
+        vbs.WriteLine('Set log = fso.OpenTextFile(logPath, 8, True)');
+        vbs.WriteLine('log.WriteLine "===== INICIO VBS ====="');
+        vbs.WriteLine('log.Close');
+        vbs.WriteLine('okTroca = False');
+        vbs.WriteLine('For tentativa = 1 To 15');
+        vbs.WriteLine('    Err.Clear');
+        vbs.WriteLine('    If fso.FileExists(htaBackup) Then fso.DeleteFile htaBackup, True');
+        vbs.WriteLine('    If fso.FileExists(htaAtual) Then fso.MoveFile htaAtual, htaBackup');
+        vbs.WriteLine('    If Err.Number = 0 Then');
+        vbs.WriteLine('        Err.Clear');
+        vbs.WriteLine('        If fso.FileExists(htaNovo) Then fso.MoveFile htaNovo, htaAtual');
+        vbs.WriteLine('        If Err.Number = 0 And fso.FileExists(htaAtual) Then');
+        vbs.WriteLine('            okTroca = True');
+        vbs.WriteLine('            Exit For');
+        vbs.WriteLine('        End If');
+        vbs.WriteLine('    End If');
+        vbs.WriteLine('    Err.Clear');
+        vbs.WriteLine('    If fso.FileExists(htaBackup) And Not fso.FileExists(htaAtual) Then');
+        vbs.WriteLine('        fso.MoveFile htaBackup, htaAtual');
+        vbs.WriteLine('    End If');
+        vbs.WriteLine('    WScript.Sleep 1000');
+        vbs.WriteLine('Next');
+        vbs.WriteLine('Set log = fso.OpenTextFile(logPath, 8, True)');
+        vbs.WriteLine('log.WriteLine "troca ok=" & okTroca & " err.number=" & Err.Number & " err.desc=" & Err.Description');
+        vbs.WriteLine('log.Close');
+        vbs.WriteLine('Err.Clear');
+        vbs.WriteLine('If okTroca Then');
+        vbs.WriteLine('    If fso.FileExists(htaBackup) Then fso.DeleteFile htaBackup, True');
+        vbs.WriteLine('    CreateObject("WScript.Shell").Run Chr(34) & htaAtual & Chr(34), 1, False');
+        vbs.WriteLine('Else');
+        vbs.WriteLine('    CreateObject("WScript.Shell").Popup "Falha ao substituir o arquivo atual. Veja update_log.txt", 8, "Atualizacao IW41", 48');
+        vbs.WriteLine('End If');
+        vbs.WriteLine('Set log = fso.OpenTextFile(logPath, 8, True)');
+        vbs.WriteLine('log.WriteLine "run hta err.number=" & Err.Number & " err.desc=" & Err.Description');
+        vbs.WriteLine('sh.Run "cmd /c ping 127.0.0.1 -n 4 > nul & del /f /q """ & meuScript & """", 0, False');
+        vbs.WriteLine('log.WriteLine "auto-delete agendado para o VBS"');
+        vbs.WriteLine('log.WriteLine "===== FIM VBS ====="');
+        vbs.WriteLine('log.Close');
+        vbs.Close();
+
+        log = fso.OpenTextFile(caminhoLog, 8, true);
+        log.WriteLine("VBS criado");
+        log.WriteLine("disparando wscript");
+        log.Close();
+
+        shell.Run('wscript.exe "' + caminhoVBS + '"', 0, false);
+
+        log = fso.OpenTextFile(caminhoLog, 8, true);
+        log.WriteLine("wscript disparado");
+        log.WriteLine("fechando hta");
+        log.Close();
+
+        window.close();
+
+    }catch(e){
+
+        try{
+            var fso2 = new ActiveXObject("Scripting.FileSystemObject");
+            var log2 = fso2.OpenTextFile(obterPastaHTA() + "update_log.txt", 8, true);
+            log2.WriteLine("ERRO NO HTA: " + e.message);
+            log2.Close();
+        }catch(ex){}
+
+        alert("Falha na atualização automática.\nVeja update_log.txt");
+    }
+}
+
+
+(function verificarIntegridade(){
+    if(__IW41_SIGNATURE__ !== "IW41_BASE_V1_7_CONGELADA_OK"){
+        alert("Arquivo IW41 adulterado ou corrompido.\nExecu  o bloqueada.");
+        window.close();
+    }
+})();
+
+/* ===== PROTEGE  O HTA (SOMENTE EXECUcaO) ===== */
+try {
+    if (typeof window.external === "undefined") {
+        alert("Este arquivo deve ser executado como HTA.");
+        window.close();
+    }
+} catch(e) {
+    window.close();
+}
+
+
+/* ===== FOCO AZUL (HTA SAFE) ===== */
+function focoOn(el){
+    if(el){
+        el.style.boxShadow = "0 0 6px rgba(0,170,255,0.6)";
+    }
+}
+
+function focoOff(el){
+    if(el){
+        el.style.boxShadow = "none";
+    }
+}
+
+
+/* ===== ERRO VERMELHO ===== */
+function marcarErro(el){
+    if(el) el.style.border="2px solid #ff3333";
+}
+function limparErro(el){
+    if(el) el.style.border="1px solid #00ff66";
+}
+
+
+/* ================= MASCARAS ================= */
+dataInicial.onkeyup = function () {
+
+    // mant m apenas n meros
+    var v = this.value.replace(/\D/g, "").substr(0, 8);
+
+    // aplica m scara visual
+    if (v.length >= 5)
+        this.value = v.substr(0,2)+"/"+v.substr(2,2)+"/"+v.substr(4,4);
+    else if (v.length >= 3)
+        this.value = v.substr(0,2)+"/"+v.substr(2,2);
+    else
+        this.value = v;
+
+    // valida agressivamente quando completo
+    if (v.length === 8) {
+        if (!isDataValida(v)) {
+            this.value = "";      // ?? APAGA AUTOMATICAMENTE
+            marcarErro(this);
+        } else {
+            limparErro(this);
+        }
+    }
+};
+
+dataInicial.onfocus = function(){
+    focoOn(this);
+};
+
+horaInicial.onkeyup = function () {
+
+    var v = this.value.replace(/\D/g, "").substr(0, 4);
+
+    // m scara visual
+    if (v.length >= 3)
+        this.value = v.substr(0,2)+":"+v.substr(2,2);
+    else
+        this.value = v;
+
+    // valida agressivamente quando completo
+    if (v.length === 4) {
+        if (!isHoraValida(v)) {
+            this.value = "";      // ?? APAGA AUTOMATICAMENTE
+            marcarErro(this);
+        } else {
+            limparErro(this);
+        }
+    }
+};
+
+
+
+horaInicial.onfocus = function(){
+    focoOn(this);
+};
+
+
+dataInicial.onfocus=function(){focoOn(this);};
+
+horaInicial.onfocus=function(){focoOn(this);};
+
+ordemInicial.onfocus=function(){focoOn(this);};
+ordemInicial.onblur=function(){focoOff(this);};
+
+ordemFinal.onfocus=function(){focoOn(this);};
+ordemFinal.onblur=function(){focoOff(this);};
+
+totalTarefas.onfocus=function(){focoOn(this);};
+totalTarefas.onblur=function(){focoOff(this);};
+
+duracaoPadrao.onfocus=function(){focoOn(this);};
+duracaoPadrao.onblur=function(){focoOff(this);};
+
+
+/* ================= ORDENS ================= */
+modoSeq.onclick=function(){
+    areaSeq.className="";
+    areaManual.className="hidden";
+// ?? SALVA AP S ALTERAR
+    salvarConfig();
+};
+modoManual.onclick=function(){
+    areaSeq.className="hidden";
+    areaManual.className="";
+    listaManual.innerHTML="";
+    adicionarLinhaOrdem();
+// ?? SALVA AP S ALTERAR
+    salvarConfig();
+};
+
+function validarOrdemManual(v){
+    return /^\d{8}$/.test(v);
+}
+
+function adicionarLinhaOrdem(){
+    var inputs=listaManual.getElementsByTagName("input");
+    if(inputs.length>0){
+        if(!validarOrdemManual(inputs[inputs.length-1].value)){
+            alert("Digite exatamente 8 n meros antes de adicionar outra ordem.");
+            return;
+        }
+    }
+    var d=document.createElement("div");
+    d.style.marginBottom="6px";
+
+    var i=document.createElement("input");
+    i.type="text";
+    i.maxLength=8;
+    i.onkeyup=function(){this.value=this.value.replace(/\D/g,"");};
+
+    d.appendChild(i);
+    listaManual.appendChild(d);
+}
+
+function obterOrdensManuais(){
+    var arr=[];
+    var inputs=listaManual.getElementsByTagName("input");
+    for(var i=0;i<inputs.length;i++){
+        if(!validarOrdemManual(inputs[i].value)){
+            alert("Ordem invalida: "+inputs[i].value);
+            return null;
+        }
+        arr.push(inputs[i].value);
+    }
+    return arr;
+}
+
+
+// ===== CONTROLE DE MODO TAREFA =====
+
+modoTradicional.onclick = function(){
+
+    labelDuracao.innerText = "Duração por tarefa (MIN):";
+    btnGerar.innerText = "GERAR SCRIPT";
+
+    // Se veio do modo random, limpa estado
+    resetRandom();
+
+};
+
+modoRandom.onclick = function(){
+    labelDuracao.innerText = "Tempo total da ordem (MIN):";
+    btnGerar.innerText = "GERAR RANDOM";
+};
+
+
+
+/* ================= TABELA ================= */
+function atualizarContador(inp,id){
+    var c=document.getElementById(id);
+    c.innerText=inp.value.length+"/40";
+    c.className=(inp.value.length>=40)?"contador limite":"contador";
+}
+
+function gerarTabela(){
+
+    var t = parseInt(totalTarefas.value,10);
+    tabelaEletrica.innerHTML = "";
+    if(isNaN(t) || t < 1) return;
+
+    var h = "<table class='tabela-erp'>";
+
+    h += "<tr>";
+    h += "<th class='col-tarefa'>Tarefa</th>";
+    h += "<th class='col-dur'>Dur.</th>";
+    h += "<th class='col-texto'>Texto da Atividade</th>";
+    h += "</tr>";
+
+    for(var i=1;i<=t;i++){
+
+        h += "<tr>";
+
+        h += "<td class='col-tarefa'>" + i + "</td>";
+
+        h += "<td class='col-dur'>";
+        h += "<input type='text' id='dur_"+i+"' maxlength='3'>";
+        h += "</td>";
+
+        h += "<td class='col-texto'>";
+        h += "<input type='text' id='txt_"+i+"' maxlength='40' ";
+        h += "onkeyup=\"atualizarContador(this,'cnt_"+i+"')\">";
+        h += "<div id='cnt_"+i+"' class='contador'>0/40</div>";
+        h += "</td>";
+
+        h += "</tr>";
+    }
+
+    h += "</table>";
+
+    tabelaEletrica.innerHTML = h;
+
+    aplicarValidacaoDuracao();
+}
+
+ordemEletrica.onclick=function(){
+    areaEletrica.className=this.checked?"":"hidden";
+    if(this.checked)gerarTabela();
+};
+
+
+totalTarefas.onchange=function(){
+    if(ordemEletrica.checked)gerarTabela();
+};
+
+
+function isDataValida(ddmmyyyy){
+    if(ddmmyyyy.length !== 8) return false;
+
+    var dd = parseInt(ddmmyyyy.substr(0,2),10);
+    var mm = parseInt(ddmmyyyy.substr(2,2),10);
+    var yy = parseInt(ddmmyyyy.substr(4,4),10);
+
+    if(yy < 2026 || yy > 2100) return false;
+    if(mm < 1 || mm > 12) return false;
+    if(dd < 1) return false;
+
+    var diasMes = [31,28,31,30,31,30,31,31,30,31,30,31];
+
+    // ano bissexto
+    if(mm === 2){
+        if((yy % 4 === 0 && yy % 100 !== 0) || (yy % 400 === 0)){
+            diasMes[1] = 29;
+        }
+    }
+
+    if(dd > diasMes[mm-1]) return false;
+
+    return true;
+}
+
+function isHoraValida(hhmm){
+    if(hhmm.length !== 4) return false;
+
+    var hh = parseInt(hhmm.substr(0,2),10);
+    var mm = parseInt(hhmm.substr(2,2),10);
+
+    if(hh < 0 || hh > 23) return false;
+    if(mm < 0 || mm > 59) return false;
+
+    return true;
+}
+
+function validar(){
+
+    var ok = true;
+
+   // ===== DATA =====
+var dataLimpa = dataInicial.value.replace(/\D/g,"");
+if(!isDataValida(dataLimpa)){
+    marcarErro(dataInicial);
+    ok = false;
+} else {
+    limparErro(dataInicial);
+}
+
+// ===== HORA =====
+var horaLimpa = horaInicial.value.replace(/\D/g,"");
+if(!isHoraValida(horaLimpa)){
+    marcarErro(horaInicial);
+    ok = false;
+} else {
+    limparErro(horaInicial);
+}
+
+
+    // ===== CENTRO =====
+    if(centroTrabalho.value === ""){
+        marcarErro(centroTrabalho);
+        ok = false;
+    } else {
+        limparErro(centroTrabalho);
+    }
+
+    // ===== ORDENS =====
+    if(modoSeq.checked){
+
+        if(!/^\d{8}$/.test(ordemInicial.value)){
+            marcarErro(ordemInicial);
+            ok = false;
+        } else {
+            limparErro(ordemInicial);
+        }
+
+        if(!/^\d{8}$/.test(ordemFinal.value)){
+            marcarErro(ordemFinal);
+            ok = false;
+        } else {
+            limparErro(ordemFinal);
+        }
+
+    }
+
+    if(modoManual.checked){
+        if(!obterOrdensManuais()){
+            ok = false;
+        }
+    }
+
+    // ===== TAREFAS =====
+    var t = parseInt(totalTarefas.value,10);
+    if(isNaN(t) || t < 1 || t > 99){
+        marcarErro(totalTarefas);
+        ok = false;
+    } else {
+        limparErro(totalTarefas);
+    }
+
+    var d = parseInt(duracaoPadrao.value,10);
+    if(isNaN(d) || d < 1 || d > 660){
+        marcarErro(duracaoPadrao);
+        ok = false;
+    } else {
+        limparErro(duracaoPadrao);
+    }
+
+    return ok;
+}
+
+function aplicarValidacaoDuracao(){
+    for(var i=1;i<=99;i++){
+        var d = document.getElementById("dur_"+i);
+        if(!d) continue;
+
+        d.onkeyup = function(){
+            this.value = this.value.replace(/\D/g,"");
+            if(this.value !== ""){
+                var n = parseInt(this.value,10);
+                if(n > 660) this.value = "660";
+                if(n === 0) this.value = "";
+            }
+        };
+
+        d.onblur = function(){
+            if(this.value !== ""){
+                var n = parseInt(this.value,10);
+                if(isNaN(n) || n < 1 || n > 660){
+                    marcarErro(this);
+                } else {
+                    limparErro(this);
+                }
+            } else {
+                limparErro(this); // vazio = usa padr o
+            }
+        };
+    }
+}
+
+/* ===== VALIDA  O TOTAL DE TAREFAS (1 99) ===== */
+totalTarefas.onkeyup = function(){
+    this.value = this.value.replace(/\D/g,"");
+    if(this.value !== ""){
+        var n = parseInt(this.value,10);
+        if(n > 99) this.value = "99";
+        if(n === 0) this.value = "";
+    }
+};
+
+totalTarefas.onblur = function(){
+    if(this.value === ""){
+        marcarErro(this);
+        return;
+    }
+    var n = parseInt(this.value,10);
+    if(isNaN(n) || n < 1 || n > 99){
+        marcarErro(this);
+    } else {
+        limparErro(this);
+    }
+};
+
+/* ===== VALIDA  O DURA  O PADR O (1 660) ===== */
+duracaoPadrao.onkeyup = function(){
+    this.value = this.value.replace(/\D/g,"");
+    if(this.value !== ""){
+        var n = parseInt(this.value,10);
+        if(n > 660) this.value = "660";
+        if(n === 0) this.value = "";
+    }
+};
+
+duracaoPadrao.onblur = function(){
+    if(this.value === ""){
+        marcarErro(this);
+        return;
+    }
+    var n = parseInt(this.value,10);
+    if(isNaN(n) || n < 1 || n > 660){
+        marcarErro(this);
+    } else {
+        limparErro(this);
+    }
+};
+
+/* ===== ORDENS SEQUENCIAIS   SOMENTE N MEROS (8 D GITOS) ===== */
+ordemInicial.onkeyup = function(){
+    this.value = this.value.replace(/\D/g,"").substr(0,8);
+};
+
+ordemFinal.onkeyup = function(){
+    this.value = this.value.replace(/\D/g,"").substr(0,8);
+};
+
+ordemInicial.onblur = function(){
+    if(modoSeq.checked){
+        if(this.value.length !== 8){
+            marcarErro(this);
+        } else {
+            limparErro(this);
+        }
+    }
+};
+
+ordemFinal.onblur = function(){
+    if(modoSeq.checked){
+        if(this.value.length !== 8){
+            marcarErro(this);
+        } else {
+            limparErro(this);
+        }
+    }
+};
+
+
+/* ===== MODO SOMENTE LEITURA (HTA COMPAT VEL) ===== */
+function setSomenteLeitura(ativo){
+
+    var inputs = document.getElementsByTagName("input");
+    var selects = document.getElementsByTagName("select");
+    var textareas = document.getElementsByTagName("textarea");
+    var buttons = document.getElementsByTagName("button");
+
+    // INPUTS
+    for(var i=0;i<inputs.length;i++){
+        if(
+            inputs[i].type !== "button" &&
+            inputs[i].type !== "checkbox" &&
+            inputs[i].type !== "radio"
+        ){
+            inputs[i].readOnly = ativo;
+            inputs[i].style.opacity = ativo ? "0.7" : "1";
+        }
+    }
+
+    // SELECTS
+    for(var j=0;j<selects.length;j++){
+        selects[j].disabled = ativo;
+        selects[j].style.opacity = ativo ? "0.7" : "1";
+    }
+
+    // TEXTAREAS
+    for(var k=0;k<textareas.length;k++){
+        textareas[k].readOnly = ativo;
+        textareas[k].style.opacity = ativo ? "0.7" : "1";
+    }
+
+    // RADIOS / CHECKBOXES
+    modoSeq.disabled        = ativo;
+    modoManual.disabled    = ativo;
+    ordemEletrica.disabled = ativo;
+
+    // BOTOES
+    for(var b=0;b<buttons.length;b++){
+        if(buttons[b].innerText !== "GERAR SCRIPT" &&
+           buttons[b].innerText !== "NOVO APONTAMENTO"){
+            buttons[b].disabled = ativo;
+            buttons[b].style.opacity = ativo ? "0.7" : "1";
+        }
+    }
+}
+
+
+function montarResumo(){
+
+    var resumo = document.getElementById("resumoFinal");
+    var texto  = document.getElementById("textoResumo");
+
+    if(!resumo || !texto){
+        return; // evita erro em HTA
+    }
+
+    var r = "";
+    r += "Data inicial: " + dataInicial.value + "\n";
+    r += "Hora inicial: " + horaInicial.value + "\n";
+    r += "Centro: " + centroTrabalho.value + "\n\n";
+
+    if(modoSeq.checked){
+        r += "Modo: Sequencial\n";
+        r += "Ordem inicial: " + ordemInicial.value + "\n";
+        r += "Ordem final: " + ordemFinal.value + "\n";
+    } else {
+        r += "Modo: Manual\n";
+        var arr = obterOrdensManuais();
+        if(arr && arr.length){
+            r += "Ordens: " + arr.join(", ") + "\n";
+        }
+    }
+
+    r += "\nTotal de tarefas: " + totalTarefas.value + "\n";
+    r += "Duracao padrao: " + duracaoPadrao.value + " min\n";
+    r += "Personalizacao: " + (ordemEletrica.checked ? "SIM" : "NAO") + "\n";
+
+
+// ===== CALCULO HORA FINAL MULTI-ORDEM (v1.7.7) =====
+
+var total = parseInt(totalTarefas.value,10);
+var durPadrao = parseInt(duracaoPadrao.value,10);
+var hora  = horaInicial.value.replace(/\D/g,"");
+
+if(!isNaN(total) && !isNaN(durPadrao) && hora.length === 4){
+
+    var minutosPorOrdem = 0;
+
+    // ===== CALCULA TEMPO DE UMA ORDEM =====
+    if(ordemEletrica.checked){
+
+        for(var i=1;i<=total;i++){
+
+            var campo = document.getElementById("dur_"+i);
+
+            if(campo && campo.value !== ""){
+                minutosPorOrdem += parseInt(campo.value,10);
+            }else{
+                minutosPorOrdem += durPadrao;
+            }
+        }
+
+    }else{
+
+        minutosPorOrdem = total * durPadrao;
+
+    }
+
+    // ===== CALCULA QUANTIDADE DE ORDENS =====
+    var quantidadeOrdens = 1;
+
+    if(modoSeq.checked){
+
+        var ini = parseInt(ordemInicial.value,10);
+        var fim = parseInt(ordemFinal.value,10);
+
+        if(!isNaN(ini) && !isNaN(fim) && fim >= ini){
+            quantidadeOrdens = (fim - ini) + 1;
+        }
+
+    }
+
+    if(modoManual.checked){
+
+        var arr = obterOrdensManuais();
+        if(arr && arr.length){
+            quantidadeOrdens = arr.length;
+        }
+
+    }
+
+// ===== TEMPO TOTAL GERAL =====
+var minutosTotais = minutosPorOrdem * quantidadeOrdens;
+
+var hh = parseInt(hora.substr(0,2),10);
+var mm = parseInt(hora.substr(2,2),10);
+
+var dataBase = new Date(2024,0,1,hh,mm,0);
+
+// ===== DETALHAMENTO POR ORDEM =====
+r += "\nDetalhamento por ordem:\n";
+r += "--------------------------------\n";
+
+var horaCorrente = new Date(dataBase);
+
+for(var o=1; o<=quantidadeOrdens; o++){
+
+    var inicioOrdem = new Date(horaCorrente);
+
+    horaCorrente.setMinutes(horaCorrente.getMinutes() + minutosPorOrdem);
+
+    var fimOrdem = new Date(horaCorrente);
+
+    var horaIniFmt =
+        ("0"+inicioOrdem.getHours()).slice(-2) + ":" +
+        ("0"+inicioOrdem.getMinutes()).slice(-2);
+
+    var horaFimFmt =
+        ("0"+fimOrdem.getHours()).slice(-2) + ":" +
+        ("0"+fimOrdem.getMinutes()).slice(-2);
+
+    r += "Ordem " + o + " → " + horaIniFmt + " às " + horaFimFmt + "\n";
+}
+
+// ===== HORA FINAL GERAL =====
+var horaFinalGeral =
+    ("0"+horaCorrente.getHours()).slice(-2) + ":" +
+    ("0"+horaCorrente.getMinutes()).slice(-2);
+
+r += "--------------------------------\n";
+r += "Ordens processadas: " + quantidadeOrdens + "\n";
+r += "Tempo por ordem: " + minutosPorOrdem + " min\n";
+r += "Tempo Total Geral: " + minutosTotais + " min\n";
+r += "Hora Final Geral: " + horaFinalGeral + "\n";
+}
+    texto.innerText = r;
+    resumo.className = ""; // remove hidden
+    resumo.style.display = "block";
+}
+
+/* ================= GERAR VBS ================= */
+function gerarVBS(){
+    
+if(modoRandom.checked){
+        executarRandomOficial();
+        return;
+    }
+
+    if(!validar()) return;
+
+    montarResumo();
+
+
+    var data=dataInicial.value.replace(/\D/g,"");
+    var hora=horaInicial.value.replace(/\D/g,"");
+    var centro=centroTrabalho.value;
+    var total=parseInt(totalTarefas.value,10);
+    var dur=parseInt(duracaoPadrao.value,10);
+    var eletrica=ordemEletrica.checked;
+
+    var caminho=decodeURIComponent(location.pathname).replace(/\//g,"\\");
+    var pasta=caminho.substring(0,caminho.lastIndexOf("\\")+1);
+
+    var vbs="";
+    var log="";
+
+    /* ===== SETUP ===== */
+    vbs+="' ============================================================\n";
+    vbs+="' ========================== SETUP ===========================\n";
+    vbs+="' ============================================================\n\n";
+
+    if(modoManual.checked){
+        var arr=obterOrdensManuais();
+        vbs+="Dim ORDEM_INICIAL, ORDEM_FINAL\n";
+        vbs+="ORDEM_INICIAL = -1\nORDEM_FINAL = 0\n\n";
+        vbs+="Dim ORDENS_MANUAIS\nORDENS_MANUAIS = Array(";
+        for(var i=0;i<arr.length;i++){
+            vbs+="\""+arr[i]+"\""+(i<arr.length-1?",":"");
+        }
+        vbs+=")\n\n";
+        log+="ORDENS_MANUAIS="+arr.join(",")+"\n";
+    }else{
+        vbs+="Dim ORDEM_INICIAL, ORDEM_FINAL\n";
+        vbs+="ORDEM_INICIAL = "+ordemInicial.value+"\n";
+        vbs+="ORDEM_FINAL   = "+ordemFinal.value+"\n\n";
+        vbs+="Dim ORDENS_MANUAIS\nORDENS_MANUAIS = Array()\n\n";
+        log+="ORDEM_INICIAL="+ordemInicial.value+"\n";
+        log+="ORDEM_FINAL="+ordemFinal.value+"\n";
+    }
+
+    vbs+="Dim DATA_INICIAL, HORA_INICIAL, CENTRO_TRAB, TOTAL_TAREFAS, DURACAO_TAREFA\n";
+    vbs+="DATA_INICIAL=\""+data+"\"\n";
+    vbs+="HORA_INICIAL=\""+hora+"\"\n";
+    vbs+="CENTRO_TRAB=\""+centro+"\"\n";
+    vbs+="TOTAL_TAREFAS="+total+"\n";
+    vbs+="DURACAO_TAREFA="+dur+"\n\n";
+
+    vbs+="Dim ORDEM_ELETRICA, TEXTO_PADRAO\n";
+    vbs+="ORDEM_ELETRICA="+(eletrica?"True":"False")+"\n";
+    vbs+="TEXTO_PADRAO=\"OK\"\n\n";
+
+    vbs+="Dim MAPA_TEXTO_ELETRICO:Set MAPA_TEXTO_ELETRICO=CreateObject(\"Scripting.Dictionary\")\n";
+    vbs+="Dim MAPA_DURACAO_TAREFA:Set MAPA_DURACAO_TAREFA=CreateObject(\"Scripting.Dictionary\")\n\n";
+
+    if(eletrica){
+        for(var i=1;i<=total;i++){
+            var t=document.getElementById("txt_"+i);
+            var d=document.getElementById("dur_"+i);
+            if (t && t.value.replace(/^\s+|\s+$/g,"") !== ""){
+                vbs+="MAPA_TEXTO_ELETRICO.Add "+i+", \""+t.value+"\"\n";
+                log+="TEXTO_"+i+"="+t.value+"\n";
+            }
+            if(d&&d.value!==""){
+                vbs+="MAPA_DURACAO_TAREFA.Add "+i+", "+d.value+"\n";
+                log+="DURACAO_"+i+"="+d.value+"\n";
+            }
+        }
+        vbs+="\n";
+    }
+
+/* ===== SCRIPT SAP 2.5 ===== */
+if(debugSAP && debugSAP.checked){
+    vbs += gerarScriptDebugSAP();
+}else{
+    vbs += document.getElementById("SCRIPT_SAP_25").value;
+}
+
+
+var fso = new ActiveXObject("Scripting.FileSystemObject");
+var caminhoVBS = pasta + "Apontamento_IW41.vbs";
+var caminhoINI = pasta + "Apontamento_IW41.ini";
+
+var f = fso.CreateTextFile(caminhoVBS, true);
+f.Write(vbs);
+f.Close();
+
+var l = fso.CreateTextFile(caminhoINI, true);
+l.Write(log);
+l.Close();
+
+/* ===== EXECUTA O VBS AUTOMATICAMENTE ===== */
+var shell = new ActiveXObject("WScript.Shell");
+
+/*
+  0 = janela oculta
+  false = N O esperar terminar (SAP assume a frente)
+*/
+shell.Run('"' + caminhoVBS + '"', 0, false);
+
+alert("Script executado no SAP.\nAguarde o processamento.");
+
+
+    // trava edicao e libera novo apontamento
+    setSomenteLeitura(true);
+    btnGerar.disabled = true;
+    btnNovo.disabled  = false;
+
+}
+
+function novoApontamento(){
+
+    // libera edição
+    setSomenteLeitura(false);
+
+    // limpa campos operacionais
+    dataInicial.value = "";
+    horaInicial.value = "";
+
+    ordemInicial.value = "";
+    ordemFinal.value = "";
+
+    totalTarefas.value = "";
+    duracaoPadrao.value = "";
+
+    ordemEletrica.checked = false;
+    areaEletrica.className = "hidden";
+
+    listaManual.innerHTML = "";
+    tabelaEletrica.innerHTML = "";
+
+    // ===== DESBLOQUEIA CAMPOS DURACAO =====
+    for(var z=1; z<=99; z++){
+        var campoUnlock = document.getElementById("dur_"+z);
+        if(campoUnlock){
+            campoUnlock.readOnly = false;
+            campoUnlock.style.background = "";
+            campoUnlock.style.color = "";
+        }
+    }
+
+    // ===== ESCONDE RESUMO =====
+    var resumo = document.getElementById("resumoFinal");
+    var texto  = document.getElementById("textoResumo");
+
+    if(resumo){
+        resumo.className = "hidden";
+        resumo.style.display = "none";
+    }
+
+    if(texto){
+        texto.innerText = "";
+    }
+
+    // ===== RESTAURA CONFIGURACOES SALVAS =====
+    limparTemporariosAtualizacao();
+    carregarConfig();
+
+    // ===== FORCA MODO TRADICIONAL COMO PADRAO VISUAL =====
+    modoTradicional.checked = true;
+    modoRandom.checked = false;
+    labelDuracao.innerText = "Duração por tarefa (MIN):";
+    btnGerar.innerText = "GERAR SCRIPT";
+
+    // ===== RESTAURA BOTOES =====
+    btnGerar.disabled = false;
+    btnNovo.disabled  = true;
+
+    btnGerar.style.display = "inline-block";
+    btnResetRandom.style.display = "none";
+
+    if(typeof btnExecutar !== "undefined"){
+        btnExecutar.style.display = "none";
+    }
+
+    window.scrollTo(0,0);
+}
+
+function executarDebugRandom(){
+
+    var total = parseInt(document.getElementById("totalTarefas").value,10);
+    var tempoTotal = parseInt(document.getElementById("duracaoPadrao").value,10);
+
+    if(isNaN(total) || total < 1){
+        alert("Informe o total de tarefas.");
+        return;
+    }
+
+    if(isNaN(tempoTotal) || tempoTotal < 1){
+        alert("Informe o tempo total (usando campo duração padrão).");
+        return;
+    }
+
+    var tempos = [];
+    var somaFixos = 0;
+    var tarefasVazias = [];
+
+    // Captura dura  es personalizadas
+    for(var i=1;i<=total;i++){
+
+        var campo = document.getElementById("dur_"+i);
+
+        if(campo && campo.value !== ""){
+            var val = parseInt(campo.value,10);
+            tempos[i] = val;
+            somaFixos += val;
+        }else{
+            tempos[i] = 0;
+            tarefasVazias.push(i);
+        }
+    }
+
+    var restante = tempoTotal - somaFixos;
+
+    if(restante < 0){
+        alert("Tempo personalizado excede o tempo total.");
+        return;
+    }
+
+    // Distribui  o aleat ria controlada
+    while(restante > 0 && tarefasVazias.length > 0){
+
+        for(var j=0;j<tarefasVazias.length;j++){
+
+            if(restante <= 0) break;
+
+            var tarefaIndex = tarefasVazias[j];
+
+            var add = Math.floor(Math.random() * 3) + 1; // 1 a 3 min
+
+            if(add > restante) add = restante;
+
+            tempos[tarefaIndex] += add;
+            restante -= add;
+        }
+    }
+
+    // Garantir m nimo 1 minuto se sobrar tarefa zerada
+    for(var k=1;k<=total;k++){
+        if(tempos[k] === 0){
+            tempos[k] = 1;
+        }
+    }
+
+    // Monta resumo
+    var r = "===== DEBUG RANDOM =====\n\n";
+
+    var somaFinal = 0;
+
+    for(var x=1;x<=total;x++){
+        r += "Tarefa " + x + " : " + tempos[x] + " min\n";
+        somaFinal += tempos[x];
+    }
+
+
+// ===== PREENCHE TABELA PERSONALIZA  O =====
+for(var p=1;p<=total;p++){
+    var campoDur = document.getElementById("dur_"+p);
+    if(campoDur){
+        campoDur.value = tempos[p];
+    }
+}
+
+    r += "\nTempo Total: " + somaFinal + " min";
+
+// ===== CALCULA HORA FINAL =====
+var horaIniStr = document.getElementById("horaInicial").value;
+
+if(horaIniStr && horaIniStr.indexOf(":") > -1){
+
+    var partes = horaIniStr.split(":");
+    var h = parseInt(partes[0],10);
+    var m = parseInt(partes[1],10);
+
+    var totalMin = (h * 60) + m + somaFinal;
+
+    var horaFinalH = Math.floor(totalMin / 60) % 24;
+    var horaFinalM = totalMin % 60;
+
+    var horaFinalFormatada =
+        (horaFinalH < 10 ? "0"+horaFinalH : horaFinalH) + ":" +
+        (horaFinalM < 10 ? "0"+horaFinalM : horaFinalM);
+
+    r += "\nHora Inicial: " + horaIniStr;
+    r += "\nHora Final: " + horaFinalFormatada;
+}
+
+    textoResumo.innerText = r;
+
+    var resumo = document.getElementById("resumoFinal");
+    resumo.className = "";
+    resumo.style.display = "block";
+}
+
+
+function executarRandomOficial(){
+
+    if(!validar()) return;
+
+    var total = parseInt(totalTarefas.value,10);
+    var tempoTotal = parseInt(duracaoPadrao.value,10);
+
+    if(isNaN(total) || total < 1){
+        alert("Informe o total de tarefas.");
+        return;
+    }
+
+    if(isNaN(tempoTotal) || tempoTotal < 1){
+        alert("Informe o tempo total da ordem.");
+        return;
+    }
+
+    // Ativa personaliza  o apenas se n o estiver ativa
+    if(!ordemEletrica.checked){
+        ordemEletrica.checked = true;
+        areaEletrica.className = "";
+        gerarTabela();
+    }
+
+    var tempos = [];
+    var somaFixos = 0;
+    var tarefasVazias = [];
+
+    // Captura valores existentes
+    for(var i=1;i<=total;i++){
+
+        var campo = document.getElementById("dur_"+i);
+
+        if(campo && campo.value !== ""){
+            var val = parseInt(campo.value,10);
+            if(!isNaN(val)){
+                tempos[i] = val;
+                somaFixos += val;
+            }else{
+                tempos[i] = 0;
+                tarefasVazias.push(i);
+            }
+        }else{
+            tempos[i] = 0;
+            tarefasVazias.push(i);
+        }
+    }
+
+    // Se fixos j  ultrapassam
+    if(somaFixos > tempoTotal){
+        alert("A soma das tarefas preenchidas excede o tempo total.");
+        return;
+    }
+
+    var restante = tempoTotal - somaFixos;
+    var qtdVazias = tarefasVazias.length;
+
+    // BLOQUEIO: tempo insuficiente
+    if(restante < qtdVazias){
+        var minimo = somaFixos + qtdVazias;
+        alert("Tempo total insuficiente.\nM nimo necess rio: " + minimo + " minutos.");
+        return;
+    }
+
+    // ===== DISTRIBUI  O PROPORCIONAL =====
+    if(qtdVazias > 0){
+
+        var base = Math.floor(restante / qtdVazias);
+        var resto = restante % qtdVazias;
+
+        // Aplica base
+        for(var j=0;j<qtdVazias;j++){
+            var idx = tarefasVazias[j];
+            tempos[idx] = base;
+        }
+
+        // Embaralha tarefas vazias (shuffle Fisher-Yates)
+        for(var k=qtdVazias-1;k>0;k--){
+            var r = Math.floor(Math.random() * (k+1));
+            var temp = tarefasVazias[k];
+            tarefasVazias[k] = tarefasVazias[r];
+            tarefasVazias[r] = temp;
+        }
+
+        // Distribui resto aleatoriamente
+        for(var x=0;x<resto;x++){
+            var tarefaIndex = tarefasVazias[x];
+            tempos[tarefaIndex] += 1;
+        }
+    }
+
+    // Preenche tabela
+    for(var y=1;y<=total;y++){
+        var campoFinal = document.getElementById("dur_"+y);
+        if(campoFinal){
+            campoFinal.value = tempos[y];
+        }
+    }
+
+// ===== BLOQUEIA EDI  O AP S RANDOM =====
+for(var z=1; z<=total; z++){
+    var campoLock = document.getElementById("dur_"+z);
+    if(campoLock){
+        campoLock.readOnly = true;
+        campoLock.style.background = "#222";
+        campoLock.style.color = "#00ff66";
+    }
+}
+
+// Atualiza resumo
+montarResumo();
+
+// Esconde bot o GERAR RANDOM
+btnGerar.style.display = "none";
+
+// Exibe bot o executar
+if(typeof btnExecutar !== "undefined"){
+    btnExecutar.style.display = "inline-block";
+}
+
+// Exibe bot o reset
+btnResetRandom.style.display = "inline-block";
+}
+
+
+function resetRandom(){
+
+    var total = parseInt(totalTarefas.value,10);
+
+    for(var i=1;i<=total;i++){
+        var campo = document.getElementById("dur_"+i);
+        if(campo){
+            campo.readOnly = false;
+            campo.value = "";
+            campo.style.background = "";
+            campo.style.color = "";
+        }
+    }
+
+    btnResetRandom.style.display = "none";
+    if(typeof btnExecutar !== "undefined"){
+        btnExecutar.style.display = "none";
+    }
+
+// Mostra novamente GERAR RANDOM
+btnGerar.style.display = "inline-block";
+
+}
+
+function executarApontamento(){
+
+    // Valida novamente antes de executar
+    if(!validar()) return;
+
+    // Esconde bot o executar para evitar duplo clique
+    btnExecutar.style.display = "none";
+    btnResetRandom.style.display = "none";
+
+    // Chama fluxo normal de gera  o VBS
+    modoRandom.checked = false; // for a entrar no fluxo tradicional
+    gerarVBS();
+
+}
+
+
+function atualizarBotaoPrincipal(){
+
+    if(modoRandom.checked){
+        btnGerar.innerText = "GERAR RANDOM";
+    }else{
+        btnGerar.innerText = "GERAR SCRIPT";
+    }
+}
+
+function aplicarPadrao(){
+
+    document.body.className = "theme-matrix";
+
+    centroTrabalho.value = "";
+
+    modoSeq.checked = true;
+    modoManual.checked = false;
+
+    areaSeq.className = "";
+    areaManual.className = "hidden";
+}
+
+window.onload = function(){
+    
+    btnAppBeta = document.getElementById("btnAppBeta");
+    btnTema    = document.getElementById("btnTema");
+    btnAppBeta.style.display = "none";
+
+    limparTemporariosAtualizacao();
+    carregarConfig();
+    document.title = "Gerador Script SAP - IW41 v" + VERSAO_APP;
+
+    // ===== MODO DEV 5 CLIQUES NO TITULO =====
+var contadorClique = 0;
+var timeoutClique;
+
+var titulo = document.getElementsByTagName("h1")[0];
+
+if(titulo){
+    titulo.onclick = function(){
+
+        contadorClique++;
+
+        clearTimeout(timeoutClique);
+
+        timeoutClique = setTimeout(function(){
+            contadorClique = 0;
+        }, 2000);
+
+        if(contadorClique >= 5){
+
+            contadorClique = 0;
+
+            if(!modoDev){
+                ativarModoDev();
+            }else{
+                desativarModoDev();
+            }
+        }
+    };
+}
+verificarAtualizacao();
+};
+</script>
+
+<textarea id="SCRIPT_SAP_25" style="display:none;">
+
+
+
+
+' ============================================================
+' ======================= SAP CONEXAO 01-03-26 ========================
+' ============================================================
+
+If Not IsObject(application) Then
+   Set SapGuiAuto  = GetObject("SAPGUI")
+   Set application = SapGuiAuto.GetScriptingEngine
+End If
+If Not IsObject(connection) Then
+   Set connection = application.Children(0)
+End If
+If Not IsObject(session) Then
+   Set session = connection.Children(0)
+End If
+
+session.findById("wnd[0]").maximize
+
+
+' ============================================================
+' ===== FUNCAO TEMPO + DATA (SEGURA / SEM LOCALE) ============
+' ============================================================
+
+Function SomaMinutosComData(ByRef dataTmp, horaAtual, minutos)
+    Dim d, h, m, dt
+
+    d = DateSerial(CInt(Right(dataTmp,4)), CInt(Mid(dataTmp,3,2)), CInt(Left(dataTmp,2)))
+    h = CInt(Left(horaAtual,2))
+    m = CInt(Right(horaAtual,2))
+
+    dt = d + TimeSerial(h, m, 0)
+    dt = DateAdd("n", minutos, dt)
+
+    SomaMinutosComData = Right("0" & Hour(dt), 2) & Right("0" & Minute(dt), 2)
+    dataTmp = Right("0" & Day(dt), 2) & Right("0" & Month(dt), 2) & Year(dt)
+End Function
+
+
+' ============================================================
+' =================== FUNCAO APONTAR ORDEM ===================
+' ============================================================
+
+Sub ApontarOrdem(ORDEM_ATUAL, ByRef horaAtual, ByRef dataAtual)
+
+    Dim campo
+
+    ' === Abre IW41 via barra (substitui duplo clique) ===
+    session.findById("wnd[0]/tbar[0]/okcd").Text = "/nIW41"
+    session.findById("wnd[0]").sendVKey 0
+
+    ' Aguarda campo AUFNR existir
+    Do
+        On Error Resume Next
+        Set campo = session.findById("wnd[0]/usr/ctxtCORUF-AUFNR", False)
+        On Error GoTo 0
+        If Not campo Is Nothing Then Exit Do
+        WScript.Sleep 200
+    Loop
+
+    ' === Igual fluxo da macro ===
+    campo.SetFocus
+    campo.Text = ""
+    campo.Text = CStr(ORDEM_ATUAL)
+    campo.CaretPosition = Len(CStr(ORDEM_ATUAL))
+
+    session.findById("wnd[0]").sendVKey 0
+
+    If session.findById("wnd[0]/usr/chkAFRUD-AUERU", False) Is Nothing Then
+        session.findById("wnd[0]/tbar[1]/btn[13]").Press
+        session.findById("wnd[0]/usr/tblSAPLCORUTC_3100/txtAFVGD-ARBPL[4,0]").SetFocus
+        session.findById("wnd[0]").sendVKey 2
+    End If
+'MsgBox "Teste conclu do at  sele  o da tarefa."
+'Exit Sub
+
+
+    Dim i, horaFim
+    Dim dataInicio, dataFim, dataTmp, duracaoAtual
+
+    For i = 1 To TOTAL_TAREFAS
+
+        dataInicio = dataAtual
+        dataTmp    = dataAtual
+
+        If MAPA_DURACAO_TAREFA.Exists(i) Then
+            duracaoAtual = MAPA_DURACAO_TAREFA(i)
+        Else
+            duracaoAtual = DURACAO_TAREFA
+        End If
+
+        horaFim = SomaMinutosComData(dataTmp, horaAtual, duracaoAtual)
+        dataFim = dataTmp
+
+        session.findById("wnd[0]/usr/ctxtAFRUD-ARBPL").Text = CENTRO_TRAB
+        session.findById("wnd[0]/usr/ctxtAFRUD-ISDD").Text = dataInicio
+        session.findById("wnd[0]/usr/ctxtAFRUD-ISDZ").Text = horaAtual
+        session.findById("wnd[0]/usr/ctxtAFRUD-IEDD").Text = dataFim
+        session.findById("wnd[0]/usr/ctxtAFRUD-IEDZ").Text = horaFim
+        session.findById("wnd[0]/usr/txtAFRUD-ISMNW_2").Text = duracaoAtual
+        session.findById("wnd[0]/usr/ctxtAFRUD-ISMNU").Text = "MIN"
+        session.findById("wnd[0]/usr/chkAFRUD-AUERU").Selected = True
+        session.findById("wnd[0]/usr/chkAFRUD-LEKNW").Selected = True
+
+        ' ===== TEXTO =====
+        If ORDEM_ELETRICA And MAPA_TEXTO_ELETRICO.Exists(i) Then
+            session.findById("wnd[0]/usr/txtAFRUD-LTXA1").Text = MAPA_TEXTO_ELETRICO(i)
+        Else
+            session.findById("wnd[0]/usr/txtAFRUD-LTXA1").Text = TEXTO_PADRAO
+        End If
+
+        ' ===== ENTER 1 ? dispara aviso de dia n o  til =====
+        session.findById("wnd[0]").sendVKey 0
+
+        ' ===== ENTER 2 ? confirma aviso (igual manual) =====
+        session.findById("wnd[0]").sendVKey 0
+
+        If i < TOTAL_TAREFAS Then
+            session.findById("wnd[0]/tbar[1]/btn[23]").Press
+        End If
+
+        horaAtual = horaFim
+        dataAtual = dataFim
+    Next
+
+    session.findById("wnd[0]/tbar[0]/btn[11]").Press
+    session.findById("wnd[0]/tbar[0]/btn[15]").Press
+End Sub
+
+' ============================================================
+' ===================== EXECUCAO FINAL =======================
+' ============================================================
+
+Dim horaAtual, dataAtual, ordem
+
+horaAtual = HORA_INICIAL
+dataAtual = DATA_INICIAL
+
+' ===== ORDENS SEQUENCIAIS =====
+If ORDEM_INICIAL > 0 And ORDEM_FINAL > 0 And ORDEM_INICIAL <= ORDEM_FINAL Then
+    For ordem = ORDEM_INICIAL To ORDEM_FINAL
+        Call ApontarOrdem(ordem, horaAtual, dataAtual)
+    Next
+End If
+
+' ===== ORDENS MANUAIS =====
+If IsArray(ORDENS_MANUAIS) Then
+    For Each ordem In ORDENS_MANUAIS
+        Call ApontarOrdem(ordem, horaAtual, dataAtual)
+    Next
+End If
+
+</textarea>
+
+</body>
+</html>
