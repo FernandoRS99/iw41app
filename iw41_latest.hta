@@ -519,7 +519,7 @@ Manual
 <div id="areaManual" class="hidden">
 <label>Ordens manuais:</label><br>
 <div id="listaManual"></div>
-<button type="button" onclick="adicionarLinhaOrdem()">+</button>
+<button type="button" onclick="adicionarLinhaOrdem()">+</button><button type="button" onclick="removerUltimaOrdem()" style="margin-left:6px;">-</button>
 </div>
 </fieldset>
 
@@ -611,7 +611,7 @@ var modoDev = false;
 var btnAppBeta;
 var btnTema;
 var contadorCliqueDev = 0;
-var VERSAO_APP = "1.7.12";
+var VERSAO_APP = "1.7.13";
 var URL_VERSAO = "https://raw.githubusercontent.com/FernandoRS99/iw41app/main/version.txt";
 var URL_HTA    = "https://raw.githubusercontent.com/FernandoRS99/iw41app/main/iw41_latest.hta";
 
@@ -1168,14 +1168,38 @@ function adicionarLinhaOrdem(){
     }
     var d=document.createElement("div");
     d.style.marginBottom="6px";
+    d.style.display="flex";
+    d.style.alignItems="center";
+    d.style.gap="6px";
 
     var i=document.createElement("input");
     i.type="text";
     i.maxLength=8;
+    i.style.display="inline-block";
+    i.style.width="220px";
+    i.style.height="32px";
     i.onkeyup=function(){this.value=this.value.replace(/\D/g,"");};
 
     d.appendChild(i);
     listaManual.appendChild(d);
+}
+
+function removerLinhaOrdem(div){
+    var divs=listaManual.getElementsByTagName("div");
+    if(divs.length<=1){
+        alert("É necessário manter ao menos uma ordem.");
+        return;
+    }
+    listaManual.removeChild(div);
+}
+
+function removerUltimaOrdem(){
+    var divs=listaManual.getElementsByTagName("div");
+    if(divs.length<=1){
+        alert("É necessário manter ao menos uma ordem.");
+        return;
+    }
+    listaManual.removeChild(divs[divs.length-1]);
 }
 
 function obterOrdensManuais(){
