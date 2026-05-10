@@ -1118,7 +1118,7 @@ body.theme-modern .status-pill{
     <span class="status-pill">MATRIX</span>
     <span class="status-pill">HTA LOCAL</span>
     <span class="status-pill">SAP GUI SCRIPTING</span>
-    <span class="status-pill">v1.8</span>
+    <span class="status-pill">v1.9</span>
 </div>
 
 <h1>Gerador de Script SAP</h1>
@@ -1164,10 +1164,6 @@ Manual
 <label>Ordem final:</label>
 <input type="text" id="ordemFinal" maxlength="8"><br>
 
-<label id="confFinalSeqLabel" class="conf-final-label">
-<input type="checkbox" id="confFinalSeq" onclick="atualizarConfFinalVisual(this);">
-Conf. Final
-</label>
 </div>
 
 <div id="areaManual" class="hidden">
@@ -1265,7 +1261,9 @@ var modoDev = false;
 var btnAppBeta;
 var btnTema;
 var contadorCliqueDev = 0;
-var VERSAO_APP = "1.8";
+var VERSAO_APP = "1.9";
+var DECISAO_CONF_FINAL = null;
+var CALLBACK_APOS_GERAR_VBS = null;
 var URL_VERSAO = "https://raw.githubusercontent.com/FernandoRS99/iw41app/main/version.txt";
 var URL_HTA    = "https://raw.githubusercontent.com/FernandoRS99/iw41app/main/iw41_latest.hta";
 
@@ -1840,18 +1838,6 @@ function adicionarLinhaOrdem(){
 
     d.appendChild(i);
 
-    var lbl=document.createElement("label");
-    lbl.className="conf-final-label";
-
-    var chk=document.createElement("input");
-    chk.type="checkbox";
-    chk.className="confFinalManual";
-    chk.onclick=function(){atualizarConfFinalVisual(this);};
-
-    lbl.appendChild(chk);
-    lbl.appendChild(document.createTextNode(" Conf. Final"));
-    d.appendChild(lbl);
-
     listaManual.appendChild(d);
 }
 
@@ -1887,36 +1873,174 @@ function obterOrdensManuais(){
     return arr;
 }
 
-function obterConfFinalManuais(){
-    var arr=[];
-    var linhas=listaManual.getElementsByTagName("div");
-    for(var i=0;i<linhas.length;i++){
-        var inputs=linhas[i].getElementsByTagName("input");
-        var ordem="";
-        var conf=false;
-        for(var j=0;j<inputs.length;j++){
-            if(inputs[j].type === "text"){
-                ordem = inputs[j].value;
-            }
-            if(inputs[j].type === "checkbox"){
-                conf = inputs[j].checked;
-            }
+function criarAlertaTela(titulo, mensagem, modo, callback){
+
+    var antigo = document.getElementById("iw41ModalAlerta");
+    if(antigo){
+        antigo.parentNode.removeChild(antigo);
+    }
+
+    var overlay = document.createElement("div");
+    overlay.id = "iw41ModalAlerta";
+    overlay.style.position = "absolute";
+    overlay.style.left = "0";
+    overlay.style.top = "0";
+    overlay.style.width = Math.max(document.body.scrollWidth, document.body.clientWidth) + "px";
+    overlay.style.height = Math.max(document.body.scrollHeight, document.body.clientHeight) + "px";
+    overlay.style.zIndex = "99999";
+    overlay.style.backgroundColor = "#000000";
+
+    var box = document.createElement("div");
+    box.style.position = "absolute";
+    box.style.left = "50%";
+    box.style.top = (document.body.scrollTop + 130) + "px";
+    box.style.width = "560px";
+    box.style.marginLeft = "-280px";
+    box.style.background = "#031008";
+    box.style.border = "2px solid #00ff66";
+    box.style.color = "#d8ffe4";
+    box.style.fontFamily = "Consolas, Courier New, monospace";
+
+    var barra = document.createElement("div");
+    barra.style.background = "#001f0d";
+    barra.style.borderBottom = "1px solid #00ff66";
+    barra.style.color = "#00ff66";
+    barra.style.fontSize = "16px";
+    barra.style.fontWeight = "bold";
+    barra.style.padding = "12px 16px";
+    barra.innerHTML = "<span style='background:#2a0707;border:1px solid #ff3b30;color:#ffb3a8;padding:4px 8px;margin-right:10px;'>ALERTA</span>" + titulo;
+
+    function textoHtml(valor){
+        return String(valor)
+            .replace(/&/g,"&amp;")
+            .replace(/</g,"&lt;")
+            .replace(/>/g,"&gt;")
+            .replace(/\n/g,"<br>");
+    }
+
+    var corpo = document.createElement("div");
+    corpo.style.padding = "22px";
+    corpo.style.fontSize = "16px";
+    corpo.style.lineHeight = "1.55";
+    corpo.innerHTML = textoHtml(mensagem);
+
+    var acoes = document.createElement("div");
+    acoes.style.borderTop = "1px solid #0f5f32";
+    acoes.style.background = "#020b06";
+    acoes.style.padding = "14px 18px";
+    acoes.style.textAlign = "right";
+
+    function fechar(valor){
+        if(overlay.parentNode){
+            overlay.parentNode.removeChild(overlay);
         }
-        if(ordem !== ""){
-            arr.push({ordem:ordem, conf:conf});
+        if(callback){
+            callback(valor);
         }
     }
-    return arr;
+
+    function criarBotao(texto, tipo, valor){
+        var btn = document.createElement("button");
+        btn.innerText = texto;
+        btn.style.fontFamily = "Consolas, Courier New, monospace";
+        btn.style.fontSize = "16px";
+        btn.style.fontWeight = "bold";
+        btn.style.width = "94px";
+        btn.style.height = "38px";
+        btn.style.marginLeft = "10px";
+        btn.style.padding = "0";
+        btn.style.textAlign = "center";
+        btn.style.lineHeight = "34px";
+        btn.style.cursor = "pointer";
+
+        if(tipo === "sim"){
+            btn.style.background = "#003d18";
+            btn.style.color = "#00ff66";
+            btn.style.border = "2px solid #00ff66";
+        }else{
+            btn.style.background = "#220606";
+            btn.style.color = "#ffb3a8";
+            btn.style.border = "2px solid #ff3b30";
+        }
+
+        btn.onmouseover = function(){
+            if(tipo === "sim"){
+                btn.style.background = "#00ff66";
+                btn.style.color = "#001b0b";
+            }else{
+                btn.style.background = "#ff3b30";
+                btn.style.color = "#120000";
+            }
+        };
+        btn.onmouseout = function(){
+            if(tipo === "sim"){
+                btn.style.background = "#003d18";
+                btn.style.color = "#00ff66";
+            }else{
+                btn.style.background = "#220606";
+                btn.style.color = "#ffb3a8";
+            }
+        };
+        btn.onclick = function(){ fechar(valor); };
+        return btn;
+    }
+
+    if(modo === "ok"){
+        acoes.appendChild(criarBotao("OK", "sim", true));
+    }else{
+        acoes.appendChild(criarBotao("SIM", "sim", true));
+        acoes.appendChild(criarBotao("NAO", "nao", false));
+    }
+
+    box.appendChild(barra);
+    box.appendChild(corpo);
+    box.appendChild(acoes);
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
 }
 
-function atualizarConfFinalVisual(chk){
-    var lbl = chk.parentNode;
-    if(!lbl) return;
-    if(chk.checked){
-        lbl.className = "conf-final-label conf-final-on";
-    }else{
-        lbl.className = "conf-final-label";
-    }
+function solicitarEncerramentoObrigatorio(callback){
+
+    DECISAO_CONF_FINAL = null;
+
+    criarAlertaTela(
+        "ENCERRAMENTO DA ORDEM",
+        "QUER ENCERRAR A ORDEM AGORA?\n\n" +
+        "SIM = EXECUTA O APONTAMENTO COM CONF. FINAL MARCADA NO SAP.\n" +
+        "NAO = AVALIAR SE A ORDEM FICARA ABERTA.",
+        "simnao",
+        function(encerrar){
+            if(encerrar){
+                DECISAO_CONF_FINAL = true;
+                callback(true);
+                return;
+            }
+
+            criarAlertaTela(
+                "MANTER ORDEM ABERTA",
+                "QUER DEIXAR A ORDEM ABERTA PARA OUTRO BOCA ABERTA FECHAR?\n\n" +
+                "SIM = EXECUTA O APONTAMENTO SEM MARCAR CONF. FINAL NO SAP.\n" +
+                "NAO = CANCELA A EXECUCAO E VOLTA AO INICIO DO FLUXO.",
+                "simnao",
+                function(deixarAberta){
+                    if(deixarAberta){
+                        DECISAO_CONF_FINAL = false;
+                        callback(true);
+                        return;
+                    }
+
+                    criarAlertaTela(
+                        "APONTAMENTO CANCELADO",
+                        "APONTAMENTO CANCELADO.\n\nNENHUM SCRIPT FOI EXECUTADO.\nVOLTANDO AO INICIO DO FLUXO.",
+                        "ok",
+                        function(){
+                            callback(false);
+                        }
+                    );
+                }
+            );
+        }
+    );
 }
 
 
@@ -2288,20 +2412,20 @@ function montarResumo(){
         r += "Modo: Sequencial\n";
         r += "Ordem inicial: " + ordemInicial.value + "\n";
         r += "Ordem final: " + ordemFinal.value + "\n";
-        r += "Conf. Final: " + (confFinalSeq.checked ? "SIM" : "NAO") + "\n";
     } else {
         r += "Modo: Manual\n";
         var arr = obterOrdensManuais();
         if(arr && arr.length){
             r += "Ordens: " + arr.join(", ") + "\n";
         }
-        var confs = obterConfFinalManuais();
-        if(confs && confs.length){
-            r += "Conf. Final por ordem:\n";
-            for(var cf=0; cf<confs.length; cf++){
-                r += "  " + confs[cf].ordem + ": " + (confs[cf].conf ? "SIM" : "NAO") + "\n";
-            }
-        }
+    }
+
+    if(DECISAO_CONF_FINAL === true){
+        r += "Encerramento: ENCERRAR ORDEM\n";
+    }else if(DECISAO_CONF_FINAL === false){
+        r += "Encerramento: MANTER ORDEM ABERTA\n";
+    }else{
+        r += "Encerramento: pendente de confirmacao\n";
     }
 
     r += "\nTotal de tarefas: " + totalTarefas.value + "\n";
@@ -2416,10 +2540,28 @@ function gerarVBS(){
     
 if(modoRandom.checked){
         executarRandomOficial();
-        return;
+        return false;
     }
 
-    if(!validar()) return;
+    if(!validar()) return false;
+
+    solicitarEncerramentoObrigatorio(function(confirmado){
+        var retornoGeracao = false;
+        if(confirmado){
+            retornoGeracao = gerarVBSConfirmado();
+        }
+
+        if(CALLBACK_APOS_GERAR_VBS){
+            var callbackGerar = CALLBACK_APOS_GERAR_VBS;
+            CALLBACK_APOS_GERAR_VBS = null;
+            callbackGerar(retornoGeracao);
+        }
+    });
+
+    return false;
+}
+
+function gerarVBSConfirmado(){
 
     montarResumo();
 
@@ -2444,7 +2586,6 @@ if(modoRandom.checked){
 
     if(modoManual.checked){
         var arr=obterOrdensManuais();
-        var confArr=obterConfFinalManuais();
         vbs+="Dim ORDEM_INICIAL, ORDEM_FINAL\n";
         vbs+="ORDEM_INICIAL = -1\nORDEM_FINAL = 0\n\n";
         vbs+="Dim ORDENS_MANUAIS\nORDENS_MANUAIS = Array(";
@@ -2463,23 +2604,9 @@ if(modoRandom.checked){
     }
 
     vbs+="Dim CONF_FINAL_PADRAO\n";
-    if(modoManual.checked){
-        vbs+="CONF_FINAL_PADRAO=False\n";
-    }else{
-        vbs+="CONF_FINAL_PADRAO="+(confFinalSeq.checked?"True":"False")+"\n";
-        log+="CONF_FINAL_SEQ="+(confFinalSeq.checked?"SIM":"NAO")+"\n";
-    }
+    vbs+="CONF_FINAL_PADRAO="+(DECISAO_CONF_FINAL?"True":"False")+"\n";
+    log+="CONF_FINAL="+(DECISAO_CONF_FINAL?"SIM":"NAO")+"\n";
     vbs+="Dim MAPA_CONF_FINAL_ORDEM:Set MAPA_CONF_FINAL_ORDEM=CreateObject(\"Scripting.Dictionary\")\n";
-    if(modoManual.checked){
-        for(var c=0;c<confArr.length;c++){
-            if(confArr[c].conf){
-                vbs+="MAPA_CONF_FINAL_ORDEM.Item(\""+confArr[c].ordem+"\") = True\n";
-                log+="CONF_FINAL_"+confArr[c].ordem+"=SIM\n";
-            }else{
-                log+="CONF_FINAL_"+confArr[c].ordem+"=NAO\n";
-            }
-        }
-    }
     vbs+="\n";
 
     vbs+="Dim DATA_INICIAL, HORA_INICIAL, CENTRO_TRAB, TOTAL_TAREFAS, DURACAO_TAREFA\n";
@@ -2541,13 +2668,12 @@ var shell = new ActiveXObject("WScript.Shell");
 */
 shell.Run('"' + caminhoVBS + '"', 0, false);
 
-alert("Script executado no SAP.\nAguarde o processamento.");
-
-
     // trava edicao e libera novo apontamento
     setSomenteLeitura(true);
     btnGerar.disabled = true;
     btnNovo.disabled  = false;
+
+    return true;
 
 }
 
@@ -2562,8 +2688,7 @@ function novoApontamento(){
 
     ordemInicial.value = "";
     ordemFinal.value = "";
-    confFinalSeq.checked = false;
-    atualizarConfFinalVisual(confFinalSeq);
+    DECISAO_CONF_FINAL = null;
 
     totalTarefas.value = "";
     duracaoPadrao.value = "";
@@ -2892,12 +3017,20 @@ function executarApontamento(){
     // Valida novamente antes de executar
     if(!validar()) return;
 
-    // Esconde bot o executar para evitar duplo clique
-    btnExecutar.style.display = "none";
-    btnResetRandom.style.display = "none";
-
     // Chama fluxo normal de gera  o VBS
+    var estavaRandom = modoRandom.checked;
     modoRandom.checked = false; // for a entrar no fluxo tradicional
+
+    CALLBACK_APOS_GERAR_VBS = function(ok){
+        if(ok){
+            // Esconde botoes somente se o VBS foi gerado/executado
+            btnExecutar.style.display = "none";
+            btnResetRandom.style.display = "none";
+        }else if(estavaRandom){
+            modoRandom.checked = true;
+        }
+    };
+
     gerarVBS();
 
 }
