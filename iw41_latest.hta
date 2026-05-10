@@ -438,6 +438,642 @@ label{
     opacity:0.7;
 }
 
+/* ================= UI REFRESH MATRIX INDUSTRIAL ================= */
+
+body.theme-matrix{
+    margin:0;
+    padding:18px 24px 40px 24px;
+    background:#020403;
+    color:#d8ffe7;
+    font-family:Consolas,"Courier New",monospace;
+}
+
+body.theme-matrix #appContainer{
+    max-width:1180px;
+    min-width:760px;
+    margin:0 auto;
+    padding:0;
+}
+
+body.theme-matrix #appSidebar{
+    display:block;
+    max-width:1180px;
+    min-width:760px;
+    margin:0 auto 12px auto;
+    padding:12px;
+    background:#07100a;
+    border:1px solid #00a84a;
+    border-radius:8px;
+    z-index:auto;
+}
+
+body.theme-matrix .sidebar-title{
+    display:block;
+    color:#00ff66;
+    font-size:12px;
+    font-weight:bold;
+    letter-spacing:1px;
+    margin:0 0 8px 0;
+    padding:0;
+    border:none;
+    background:transparent;
+    text-transform:uppercase;
+}
+
+body.theme-matrix .sidebar-item{
+    display:block;
+    color:#b9ffd0;
+    cursor:pointer;
+    padding:11px 12px;
+    margin:0;
+    border:1px solid rgba(0,255,102,0.28);
+    border-radius:6px;
+    background:#030604;
+    font-size:14px;
+    text-align:center;
+}
+
+body.theme-matrix .sidebar-item:hover{
+    color:#000;
+    background:#00ff66;
+    border-color:#00ff66;
+}
+
+.app-header{
+    border:1px solid #00a84a;
+    background:#07100a;
+    padding:18px;
+    margin:0 0 12px 0;
+    border-radius:8px;
+    box-shadow:0 0 18px rgba(0,255,102,0.10);
+}
+
+.app-title{
+    color:#00ff66;
+    font-size:24px;
+    font-weight:bold;
+    letter-spacing:1px;
+    margin:0;
+}
+
+.nav-grid{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:6px;
+}
+
+.nav-grid td{
+    border:none !important;
+    padding:0;
+    width:16%;
+}
+
+.info-panel{
+    max-width:1180px;
+    min-width:760px;
+    margin:0 auto 18px auto;
+    padding:12px;
+    background:#050806;
+    border:1px solid rgba(0,255,102,0.45);
+    border-radius:8px;
+}
+
+.info-title{
+    display:block;
+    color:#00ff66;
+    font-size:12px;
+    font-weight:bold;
+    letter-spacing:1px;
+    margin:0 0 8px 0;
+    text-transform:uppercase;
+}
+
+.status-pill{
+    display:inline-block;
+    color:#d8ffe7;
+    background:#030604;
+    border:1px solid rgba(0,255,102,0.45);
+    border-radius:6px;
+    padding:5px 9px;
+    margin-right:6px;
+    font-size:13px;
+}
+
+body.theme-matrix h1{
+    display:none;
+}
+
+body.theme-matrix fieldset{
+    border:1px solid #00a84a;
+    background:#07100a;
+    border-radius:8px;
+    padding:44px 18px 18px 18px;
+    margin:0 0 16px 0;
+    position:relative;
+    box-shadow:0 0 14px rgba(0,255,102,0.08);
+}
+
+body.theme-matrix legend{
+    position:absolute;
+    top:12px;
+    left:18px;
+    color:#00ff66;
+    background:transparent;
+    font-size:17px;
+    font-weight:bold;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+body.theme-matrix label{
+    width:225px;
+    color:#c9ffd8;
+    font-size:16px;
+    line-height:36px;
+    margin:0 8px 10px 0;
+}
+
+body.theme-matrix label.radio,
+body.theme-matrix label.checkbox{
+    width:auto;
+    min-width:0;
+    display:inline-block;
+    padding:7px 10px;
+    margin:0 8px 10px 0 !important;
+    line-height:22px;
+    font-size:15px;
+    border:1px solid rgba(0,255,102,0.28);
+    border-radius:6px;
+    background:#030604;
+}
+
+body.theme-matrix .conf-final-label{
+    width:auto !important;
+    min-width:0 !important;
+    display:inline-block !important;
+    padding:3px 7px !important;
+    margin:0 0 0 8px !important;
+    line-height:18px !important;
+    font-size:13px !important;
+    border:1px solid rgba(0,255,102,0.32) !important;
+    border-radius:4px !important;
+    background:#020403 !important;
+    color:#a9ffc2 !important;
+}
+
+body.theme-matrix .conf-final-label input{
+    width:14px !important;
+    height:14px !important;
+    margin:0 4px 0 0 !important;
+    vertical-align:middle;
+}
+
+body.theme-matrix .conf-final-on{
+    color:#000 !important;
+    background:#00ff66 !important;
+    border-color:#00ff66 !important;
+}
+
+body.theme-sap .conf-final-label,
+body.theme-modern .conf-final-label{
+    width:auto !important;
+    display:inline-block !important;
+    padding:3px 7px !important;
+    margin:0 0 0 8px !important;
+    line-height:18px !important;
+    font-size:13px !important;
+    border-radius:4px !important;
+}
+
+body.theme-sap .conf-final-label input,
+body.theme-modern .conf-final-label input{
+    width:14px !important;
+    height:14px !important;
+    margin:0 4px 0 0 !important;
+    vertical-align:middle;
+}
+
+body.theme-sap .conf-final-on{
+    color:#ffffff !important;
+    background:#0a3d91 !important;
+    border-color:#0a3d91 !important;
+}
+
+body.theme-modern .conf-final-on{
+    color:#ffffff !important;
+    background:#2563eb !important;
+    border-color:#3b82f6 !important;
+}
+
+body.theme-matrix input,
+body.theme-matrix select,
+body.theme-matrix textarea{
+    display:inline-block;
+    width:240px;
+    height:38px;
+    line-height:24px;
+    padding:7px 9px;
+    margin:0 0 10px 0;
+    color:#ffffff;
+    background:#010201;
+    border:1px solid #00a84a;
+    border-radius:6px;
+    font-size:16px;
+}
+
+body.theme-matrix textarea{
+    height:86px;
+}
+
+body.theme-matrix input[type="radio"],
+body.theme-matrix input[type="checkbox"]{
+    display:inline-block;
+    width:auto;
+    height:auto;
+    padding:0;
+    margin:0 7px 0 0;
+    border:none;
+    vertical-align:middle;
+}
+
+body.theme-matrix input:focus,
+body.theme-matrix select:focus,
+body.theme-matrix textarea:focus{
+    border-color:#00ff66;
+    box-shadow:0 0 8px rgba(0,255,102,0.35);
+}
+
+body.theme-matrix button{
+    height:38px;
+    min-width:42px;
+    color:#00ff66;
+    background:#020403;
+    border:1px solid #00a84a;
+    border-radius:6px;
+    padding:7px 13px;
+    font-weight:bold;
+    font-size:14px;
+    letter-spacing:0.4px;
+}
+
+body.theme-matrix button:hover{
+    color:#000;
+    background:#00ff66;
+    border-color:#00ff66;
+}
+
+body.theme-matrix button:disabled{
+    color:#4a7a5b;
+    background:#050806;
+    border-color:#164526;
+    cursor:default;
+}
+
+body.theme-matrix #btnTema{
+    position:static !important;
+    width:100% !important;
+    height:38px !important;
+    opacity:1 !important;
+    padding:9px 10px !important;
+    background:#030604 !important;
+    text-align:center;
+}
+
+body.theme-matrix #areaManual button{
+    width:38px;
+    min-width:38px;
+    padding:0;
+    font-size:18px;
+    line-height:24px;
+}
+
+body.theme-matrix .footer-bar{
+    position:static;
+    padding:14px;
+    margin:18px 0 0 0;
+    background:#07100a;
+    border:1px solid #00a84a;
+    border-radius:8px;
+    z-index:auto;
+    box-shadow:0 0 14px rgba(0,255,102,0.08);
+}
+
+body.theme-matrix .footer-bar button{
+    margin-right:8px;
+}
+
+body.theme-matrix #btnGerar{
+    color:#000;
+    background:#00ff66;
+    border-color:#00ff66;
+}
+
+body.theme-matrix #btnExecutar{
+    color:#000;
+    background:#64ff8f;
+    border-color:#64ff8f;
+}
+
+body.theme-matrix #btnResetRandom{
+    color:#101000;
+    background:#e6d84a;
+    border-color:#e6d84a;
+}
+
+body.theme-matrix #resumoFinal{
+    background:#020403;
+    border-color:#00ff66;
+}
+
+body.theme-matrix #textoResumo{
+    margin:0;
+    color:#d8ffe7;
+    background:#000;
+    border:1px solid rgba(0,255,102,0.35);
+    border-radius:6px;
+    padding:12px;
+    line-height:1.5;
+}
+
+body.theme-matrix table th,
+body.theme-matrix table td{
+    border-color:rgba(0,255,102,0.35);
+}
+
+body.theme-matrix .tabela-erp{
+    width:100%;
+    background:#020403;
+}
+
+body.theme-matrix .tabela-erp th{
+    color:#00ff66;
+    background:#06130b;
+}
+
+body.theme-matrix .tabela-erp td{
+    background:#030604;
+}
+
+body.theme-matrix .tabela-erp input{
+    width:100%;
+    height:30px;
+}
+
+body.theme-matrix .hidden{
+    display:none !important;
+}
+
+/* ===== TOPO COMPATIVEL COM TODOS OS TEMAS ===== */
+
+body.theme-sap #appContainer,
+body.theme-modern #appContainer{
+    max-width:1180px;
+    min-width:760px;
+    margin:0 auto;
+    padding:0;
+}
+
+body.theme-sap #appSidebar,
+body.theme-modern #appSidebar{
+    display:block;
+    max-width:1180px;
+    min-width:760px;
+    margin:0 auto 12px auto;
+    padding:12px;
+    border-radius:8px;
+}
+
+body.theme-sap .nav-grid,
+body.theme-modern .nav-grid{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:6px;
+}
+
+body.theme-sap .nav-grid td,
+body.theme-modern .nav-grid td{
+    border:none !important;
+    padding:0;
+    width:16%;
+    background:transparent !important;
+}
+
+body.theme-sap .app-header,
+body.theme-modern .app-header{
+    padding:18px;
+    margin:0 0 12px 0;
+    border-radius:8px;
+}
+
+body.theme-sap .app-title,
+body.theme-modern .app-title{
+    font-size:24px;
+    font-weight:bold;
+    letter-spacing:1px;
+    margin:0;
+}
+
+body.theme-sap .info-panel,
+body.theme-modern .info-panel{
+    max-width:1180px;
+    min-width:760px;
+    margin:0 auto 18px auto;
+    padding:12px;
+    border-radius:8px;
+}
+
+body.theme-sap .status-pill,
+body.theme-modern .status-pill{
+    display:inline-block;
+    border-radius:6px;
+    padding:5px 9px;
+    margin-right:6px;
+    font-size:13px;
+}
+
+body.theme-sap h1,
+body.theme-modern h1{
+    display:none;
+}
+
+body.theme-sap .sidebar-item,
+body.theme-modern .sidebar-item{
+    display:block;
+    cursor:pointer;
+    padding:11px 12px;
+    margin:0;
+    border-radius:6px;
+    font-size:14px;
+    text-align:center;
+}
+
+body.theme-sap label,
+body.theme-modern label{
+    font-size:16px;
+    line-height:36px;
+}
+
+body.theme-sap label.radio,
+body.theme-sap label.checkbox,
+body.theme-modern label.radio,
+body.theme-modern label.checkbox{
+    font-size:15px;
+    line-height:22px;
+}
+
+body.theme-sap input,
+body.theme-sap select,
+body.theme-sap textarea,
+body.theme-modern input,
+body.theme-modern select,
+body.theme-modern textarea{
+    font-size:16px;
+    min-height:38px;
+}
+
+body.theme-sap button,
+body.theme-modern button{
+    font-size:14px;
+    min-height:38px;
+}
+
+body.theme-sap #btnTema,
+body.theme-modern #btnTema{
+    position:static !important;
+    width:100% !important;
+    height:38px !important;
+    opacity:1 !important;
+    padding:9px 10px !important;
+    text-align:center;
+}
+
+body.theme-sap .app-header{
+    background:#ffffff;
+    border:1px solid #9e9e9e;
+}
+
+body.theme-sap .app-title{
+    color:#0a3d91;
+}
+
+body.theme-sap #appSidebar{
+    background:#f7f9fc;
+    border:1px solid #9e9e9e;
+}
+
+body.theme-sap .sidebar-item{
+    color:#0a3d91;
+    background:#ffffff;
+    border:1px solid #8aa4c8;
+}
+
+body.theme-sap .sidebar-item:hover{
+    color:#ffffff;
+    background:#0a3d91;
+    border-color:#0a3d91;
+}
+
+body.theme-sap #btnTema{
+    color:#0a3d91 !important;
+    background:#ffffff !important;
+    border:1px solid #8aa4c8 !important;
+}
+
+body.theme-sap #btnTema:hover{
+    color:#ffffff !important;
+    background:#0a3d91 !important;
+}
+
+body.theme-sap .info-panel{
+    background:#ffffff;
+    border:1px solid #c9d3df;
+}
+
+body.theme-sap .status-pill{
+    color:#374151;
+    background:#eef2f7;
+    border:1px solid #c9d3df;
+}
+
+body.theme-modern .app-header{
+    background:#1e293b;
+    border:1px solid #334155;
+    box-shadow:0 8px 20px rgba(0,0,0,0.25);
+}
+
+body.theme-modern .app-title{
+    color:#60a5fa;
+}
+
+body.theme-modern #appSidebar{
+    background:#111827;
+    border:1px solid #334155;
+}
+
+body.theme-modern .sidebar-item{
+    color:#bfdbfe;
+    background:#0f172a;
+    border:1px solid #334155;
+}
+
+body.theme-modern .sidebar-item:hover{
+    color:#ffffff;
+    background:#2563eb;
+    border-color:#3b82f6;
+}
+
+body.theme-modern #btnTema{
+    color:#bfdbfe !important;
+    background:#0f172a !important;
+    border:1px solid #334155 !important;
+}
+
+body.theme-modern #btnTema:hover{
+    color:#ffffff !important;
+    background:#2563eb !important;
+}
+
+body.theme-modern .info-panel{
+    background:#0f172a;
+    border:1px solid #334155;
+}
+
+body.theme-modern .status-pill{
+    color:#cbd5e1;
+    background:#111827;
+    border:1px solid #334155;
+}
+
+@media screen and (max-width:900px){
+    body.theme-matrix{
+        padding-left:16px;
+        padding-right:16px;
+    }
+
+    body.theme-matrix #appSidebar,
+    body.theme-sap #appSidebar,
+    body.theme-modern #appSidebar{
+        min-width:0;
+    }
+
+    .info-panel,
+    body.theme-sap .info-panel,
+    body.theme-modern .info-panel{
+        min-width:0;
+    }
+
+    body.theme-matrix #appContainer,
+    body.theme-sap #appContainer,
+    body.theme-modern #appContainer{
+        margin-left:0;
+        min-width:0;
+    }
+
+    body.theme-matrix .footer-bar{
+        left:0;
+    }
+}
+
 
 
 
@@ -448,22 +1084,7 @@ label{
 
 <body class="theme-matrix" oncontextmenu="return false;">
 
-<div id="appSidebar">
-    <div class="sidebar-title">IW41</div>
-
-    <div class="sidebar-item" onclick="scrollToSection(0)">Dados</div>
-    <div class="sidebar-item" onclick="scrollToSection(1)">Ordens</div>
-    <div class="sidebar-item" onclick="scrollToSection(2)">Tarefas</div>
-    <div class="sidebar-item" onclick="scrollToSection(3)">Personaliza  o</div>
-    <div class="sidebar-item" onclick="scrollToSection(4)">Resumo</div>
-</div>
-
 <div id="appContainer">
-
-<button id="btnTema" onclick="alternarTema();" 
-style="position:fixed; top:10px; right:10px; font-size:11px; padding:4px 8px; z-index:9999; opacity:0.7;">
-Tema SAP
-</button>
 
 <button id="btnAppBeta"
         class="top-button"
@@ -472,11 +1093,39 @@ Tema SAP
     APP BETA
 </button>
 
+<div class="app-header">
+    <div class="app-title">IW41 - Gerador de Apontamento SAP</div>
+</div>
+
+<div id="appSidebar">
+    <table class="nav-grid">
+        <tr>
+            <td><div class="sidebar-item" onclick="scrollToSection(0)">[01] Dados</div></td>
+            <td><div class="sidebar-item" onclick="scrollToSection(1)">[02] Ordens</div></td>
+            <td><div class="sidebar-item" onclick="scrollToSection(2)">[03] Tarefas</div></td>
+            <td><div class="sidebar-item" onclick="scrollToSection(3)">[04] Personalizacao</div></td>
+            <td><div class="sidebar-item" onclick="scrollToSection(4)">[R] Resumo</div></td>
+            <td>
+                <button id="btnTema" onclick="alternarTema();" style="font-size:11px;">
+                    Tema SAP
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="info-panel">
+    <span class="status-pill">MATRIX</span>
+    <span class="status-pill">HTA LOCAL</span>
+    <span class="status-pill">SAP GUI SCRIPTING</span>
+    <span class="status-pill">v1.8</span>
+</div>
+
 <h1>Gerador de Script SAP</h1>
 
 <!-- ================= DADOS GERAIS ================= -->
 <fieldset>
-<legend>1. Dados Gerais</legend>
+<legend>[01] Dados Gerais</legend>
 
 <label>Data inicial:</label>
 <input type="text" id="dataInicial" placeholder="DDMMAAAA" maxlength="10"><br>
@@ -496,7 +1145,7 @@ Tema SAP
 
 <!-- ================= ORDENS ================= -->
 <fieldset>
-<legend>2. Ordens</legend>
+<legend>[02] Ordens</legend>
 
 <label class="radio">
 <input type="radio" name="modoOrdem" id="modoSeq" checked>
@@ -513,7 +1162,12 @@ Manual
 <input type="text" id="ordemInicial" maxlength="8"><br>
 
 <label>Ordem final:</label>
-<input type="text" id="ordemFinal" maxlength="8">
+<input type="text" id="ordemFinal" maxlength="8"><br>
+
+<label id="confFinalSeqLabel" class="conf-final-label">
+<input type="checkbox" id="confFinalSeq" onclick="atualizarConfFinalVisual(this);">
+Conf. Final
+</label>
 </div>
 
 <div id="areaManual" class="hidden">
@@ -525,7 +1179,7 @@ Manual
 
 <!-- ================= TAREFAS ================= -->
 <fieldset>
-<legend>3. Tarefas</legend>
+<legend>[03] Tarefas</legend>
 
 <label class="radio">
 <input type="radio" name="modoTarefa" id="modoTradicional" checked>
@@ -557,7 +1211,7 @@ Debug SAP (abrir IW41 e parar na T1)
 
 <!-- ================= PERSONALIZACAO ================= -->
 <fieldset>
-<legend>4. Personalizacao</legend>
+<legend>[04] Personalizacao</legend>
 
 <label class="checkbox">
 <input type="checkbox" id="ordemEletrica">
@@ -571,7 +1225,7 @@ Personalizar duração e texto por tarefa
 
 <!-- ================= RESUMO ================= -->
 <fieldset id="resumoFinal" class="hidden">
-    <legend>Resumo do Apontamento</legend>
+    <legend>[R] Resumo do Apontamento</legend>
     <pre id="textoResumo" style="white-space:pre-wrap;"></pre>
 </fieldset>
 
@@ -611,7 +1265,7 @@ var modoDev = false;
 var btnAppBeta;
 var btnTema;
 var contadorCliqueDev = 0;
-var VERSAO_APP = "1.7.13";
+var VERSAO_APP = "1.8";
 var URL_VERSAO = "https://raw.githubusercontent.com/FernandoRS99/iw41app/main/version.txt";
 var URL_HTA    = "https://raw.githubusercontent.com/FernandoRS99/iw41app/main/iw41_latest.hta";
 
@@ -1160,17 +1814,21 @@ function validarOrdemManual(v){
 
 function adicionarLinhaOrdem(){
     var inputs=listaManual.getElementsByTagName("input");
-    if(inputs.length>0){
-        if(!validarOrdemManual(inputs[inputs.length-1].value)){
+    var ultimoTexto=null;
+    for(var x=0;x<inputs.length;x++){
+        if(inputs[x].type === "text"){
+            ultimoTexto = inputs[x];
+        }
+    }
+    if(ultimoTexto){
+        if(!validarOrdemManual(ultimoTexto.value)){
             alert("Digite exatamente 8 n meros antes de adicionar outra ordem.");
             return;
         }
     }
     var d=document.createElement("div");
     d.style.marginBottom="6px";
-    d.style.display="flex";
-    d.style.alignItems="center";
-    d.style.gap="6px";
+    d.style.display="block";
 
     var i=document.createElement("input");
     i.type="text";
@@ -1181,6 +1839,19 @@ function adicionarLinhaOrdem(){
     i.onkeyup=function(){this.value=this.value.replace(/\D/g,"");};
 
     d.appendChild(i);
+
+    var lbl=document.createElement("label");
+    lbl.className="conf-final-label";
+
+    var chk=document.createElement("input");
+    chk.type="checkbox";
+    chk.className="confFinalManual";
+    chk.onclick=function(){atualizarConfFinalVisual(this);};
+
+    lbl.appendChild(chk);
+    lbl.appendChild(document.createTextNode(" Conf. Final"));
+    d.appendChild(lbl);
+
     listaManual.appendChild(d);
 }
 
@@ -1206,6 +1877,7 @@ function obterOrdensManuais(){
     var arr=[];
     var inputs=listaManual.getElementsByTagName("input");
     for(var i=0;i<inputs.length;i++){
+        if(inputs[i].type !== "text") continue;
         if(!validarOrdemManual(inputs[i].value)){
             alert("Ordem invalida: "+inputs[i].value);
             return null;
@@ -1213,6 +1885,38 @@ function obterOrdensManuais(){
         arr.push(inputs[i].value);
     }
     return arr;
+}
+
+function obterConfFinalManuais(){
+    var arr=[];
+    var linhas=listaManual.getElementsByTagName("div");
+    for(var i=0;i<linhas.length;i++){
+        var inputs=linhas[i].getElementsByTagName("input");
+        var ordem="";
+        var conf=false;
+        for(var j=0;j<inputs.length;j++){
+            if(inputs[j].type === "text"){
+                ordem = inputs[j].value;
+            }
+            if(inputs[j].type === "checkbox"){
+                conf = inputs[j].checked;
+            }
+        }
+        if(ordem !== ""){
+            arr.push({ordem:ordem, conf:conf});
+        }
+    }
+    return arr;
+}
+
+function atualizarConfFinalVisual(chk){
+    var lbl = chk.parentNode;
+    if(!lbl) return;
+    if(chk.checked){
+        lbl.className = "conf-final-label conf-final-on";
+    }else{
+        lbl.className = "conf-final-label";
+    }
 }
 
 
@@ -1544,6 +2248,13 @@ function setSomenteLeitura(ativo){
     }
 
     // RADIOS / CHECKBOXES
+    for(var r=0;r<inputs.length;r++){
+        if(inputs[r].type === "checkbox" || inputs[r].type === "radio"){
+            inputs[r].disabled = ativo;
+            inputs[r].style.opacity = ativo ? "0.7" : "1";
+        }
+    }
+
     modoSeq.disabled        = ativo;
     modoManual.disabled    = ativo;
     ordemEletrica.disabled = ativo;
@@ -1577,11 +2288,19 @@ function montarResumo(){
         r += "Modo: Sequencial\n";
         r += "Ordem inicial: " + ordemInicial.value + "\n";
         r += "Ordem final: " + ordemFinal.value + "\n";
+        r += "Conf. Final: " + (confFinalSeq.checked ? "SIM" : "NAO") + "\n";
     } else {
         r += "Modo: Manual\n";
         var arr = obterOrdensManuais();
         if(arr && arr.length){
             r += "Ordens: " + arr.join(", ") + "\n";
+        }
+        var confs = obterConfFinalManuais();
+        if(confs && confs.length){
+            r += "Conf. Final por ordem:\n";
+            for(var cf=0; cf<confs.length; cf++){
+                r += "  " + confs[cf].ordem + ": " + (confs[cf].conf ? "SIM" : "NAO") + "\n";
+            }
         }
     }
 
@@ -1725,6 +2444,7 @@ if(modoRandom.checked){
 
     if(modoManual.checked){
         var arr=obterOrdensManuais();
+        var confArr=obterConfFinalManuais();
         vbs+="Dim ORDEM_INICIAL, ORDEM_FINAL\n";
         vbs+="ORDEM_INICIAL = -1\nORDEM_FINAL = 0\n\n";
         vbs+="Dim ORDENS_MANUAIS\nORDENS_MANUAIS = Array(";
@@ -1741,6 +2461,26 @@ if(modoRandom.checked){
         log+="ORDEM_INICIAL="+ordemInicial.value+"\n";
         log+="ORDEM_FINAL="+ordemFinal.value+"\n";
     }
+
+    vbs+="Dim CONF_FINAL_PADRAO\n";
+    if(modoManual.checked){
+        vbs+="CONF_FINAL_PADRAO=False\n";
+    }else{
+        vbs+="CONF_FINAL_PADRAO="+(confFinalSeq.checked?"True":"False")+"\n";
+        log+="CONF_FINAL_SEQ="+(confFinalSeq.checked?"SIM":"NAO")+"\n";
+    }
+    vbs+="Dim MAPA_CONF_FINAL_ORDEM:Set MAPA_CONF_FINAL_ORDEM=CreateObject(\"Scripting.Dictionary\")\n";
+    if(modoManual.checked){
+        for(var c=0;c<confArr.length;c++){
+            if(confArr[c].conf){
+                vbs+="MAPA_CONF_FINAL_ORDEM.Item(\""+confArr[c].ordem+"\") = True\n";
+                log+="CONF_FINAL_"+confArr[c].ordem+"=SIM\n";
+            }else{
+                log+="CONF_FINAL_"+confArr[c].ordem+"=NAO\n";
+            }
+        }
+    }
+    vbs+="\n";
 
     vbs+="Dim DATA_INICIAL, HORA_INICIAL, CENTRO_TRAB, TOTAL_TAREFAS, DURACAO_TAREFA\n";
     vbs+="DATA_INICIAL=\""+data+"\"\n";
@@ -1822,6 +2562,8 @@ function novoApontamento(){
 
     ordemInicial.value = "";
     ordemFinal.value = "";
+    confFinalSeq.checked = false;
+    atualizarConfFinalVisual(confFinalSeq);
 
     totalTarefas.value = "";
     duracaoPadrao.value = "";
@@ -2307,7 +3049,7 @@ Sub ApontarOrdem(ORDEM_ATUAL, ByRef horaAtual, ByRef dataAtual)
 
 
     Dim i, horaFim
-    Dim dataInicio, dataFim, dataTmp, duracaoAtual
+    Dim dataInicio, dataFim, dataTmp, duracaoAtual, confirmarFinal
 
     For i = 1 To TOTAL_TAREFAS
 
@@ -2330,8 +3072,14 @@ Sub ApontarOrdem(ORDEM_ATUAL, ByRef horaAtual, ByRef dataAtual)
         session.findById("wnd[0]/usr/ctxtAFRUD-IEDZ").Text = horaFim
         session.findById("wnd[0]/usr/txtAFRUD-ISMNW_2").Text = duracaoAtual
         session.findById("wnd[0]/usr/ctxtAFRUD-ISMNU").Text = "MIN"
-        session.findById("wnd[0]/usr/chkAFRUD-AUERU").Selected = True
-        session.findById("wnd[0]/usr/chkAFRUD-LEKNW").Selected = True
+
+        confirmarFinal = CONF_FINAL_PADRAO
+        If MAPA_CONF_FINAL_ORDEM.Exists(CStr(ORDEM_ATUAL)) Then
+            confirmarFinal = True
+        End If
+
+        session.findById("wnd[0]/usr/chkAFRUD-AUERU").Selected = confirmarFinal
+        session.findById("wnd[0]/usr/chkAFRUD-LEKNW").Selected = confirmarFinal
 
         ' ===== TEXTO =====
         If ORDEM_ELETRICA And MAPA_TEXTO_ELETRICO.Exists(i) Then
