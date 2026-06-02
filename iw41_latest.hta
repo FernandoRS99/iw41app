@@ -5,7 +5,8 @@
 
 <hta:application
     id="GeradorIW41"
-    applicationname="Gerador IW41 v1.4"
+    applicationname="Gerador IW41"
+    version="1.9.2"
     border="dialog"
     caption="yes"
     showintaskbar="yes"
@@ -365,23 +366,6 @@ label{
 }
 
 
-/* ===== EXPANDIR INPUT TEXTO PERSONALIZADO ===== */
-
-#tabelaEletrica td:nth-child(3) input{
-    width: 100% !important;
-    display: block;
-}
-
-#tabelaEletrica td:nth-child(3){
-    padding-right: 10px;
-}
-
-#tabelaEletrica .contador{
-    text-align: right;
-    width: 100%;
-}
-
-
 /* ===== TABELA ERP INDUSTRIAL ===== */
 
 .tabela-erp{
@@ -516,6 +500,28 @@ body.theme-matrix .sidebar-item:hover{
     margin:0;
 }
 
+.app-subtitle{
+    margin-top:6px;
+    color:#9bd6b0;
+    font-family:"Segoe UI",Tahoma,Arial,sans-serif;
+    font-size:13px;
+    font-weight:normal;
+    letter-spacing:0.2px;
+}
+
+.admin-status{
+    display:none;
+    margin-left:14px;
+    color:#ffd966;
+    background:#211d05;
+    border:1px solid #a99222;
+    border-radius:12px;
+    padding:4px 9px;
+    font-size:15px;
+    letter-spacing:0;
+    vertical-align:middle;
+}
+
 .nav-grid{
     width:100%;
     border-collapse:separate;
@@ -538,6 +544,17 @@ body.theme-matrix .sidebar-item:hover{
     border-radius:8px;
 }
 
+.info-label{
+    display:inline-block;
+    margin-right:10px;
+    color:#9bd6b0;
+    font-family:"Segoe UI",Tahoma,Arial,sans-serif;
+    font-size:12px;
+    font-weight:bold;
+    letter-spacing:0.7px;
+    text-transform:uppercase;
+}
+
 .info-title{
     display:block;
     color:#00ff66;
@@ -557,6 +574,56 @@ body.theme-matrix .sidebar-item:hover{
     padding:5px 9px;
     margin-right:6px;
     font-size:13px;
+}
+
+.app-header,
+#appSidebar,
+.info-panel,
+fieldset,
+.footer-bar,
+button,
+label,
+legend{
+    font-family:"Segoe UI",Tahoma,Arial,sans-serif;
+}
+
+input,
+select,
+textarea,
+#textoResumo,
+.tabela-erp{
+    font-family:Consolas,"Courier New",monospace;
+}
+
+.form-row{
+    margin:0 0 8px 0;
+}
+
+.form-row label,
+.form-row input,
+.form-row select{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.mode-group{
+    margin:0 0 12px 0;
+}
+
+.section-note{
+    margin:0 0 12px 0;
+    color:#9bd6b0;
+    font-size:13px;
+}
+
+.footer-label{
+    display:block;
+    margin:0 0 10px 0;
+    color:#9bd6b0;
+    font-size:12px;
+    font-weight:bold;
+    letter-spacing:0.7px;
+    text-transform:uppercase;
 }
 
 body.theme-matrix h1{
@@ -823,6 +890,123 @@ body.theme-matrix .hidden{
     display:none !important;
 }
 
+/* ===== MATRIX ALTO CONTRASTE ===== */
+
+body.theme-matrix .app-header{
+    border-color:#00ff66;
+    box-shadow:0 0 22px rgba(0,255,102,0.24);
+}
+
+body.theme-matrix .app-title{
+    color:#00ff66;
+    font-size:26px;
+    text-shadow:0 0 8px rgba(0,255,102,0.48);
+}
+
+body.theme-matrix .app-subtitle{
+    color:#70ff9d;
+    font-size:15px;
+    font-weight:600;
+}
+
+body.theme-matrix #appSidebar,
+body.theme-matrix .info-panel,
+body.theme-matrix fieldset,
+body.theme-matrix .footer-bar{
+    border-color:#00d957;
+    box-shadow:0 0 16px rgba(0,255,102,0.16);
+}
+
+body.theme-matrix .sidebar-item{
+    color:#8dffad;
+    border-color:rgba(0,255,102,0.62);
+    font-size:15px;
+    font-weight:bold;
+}
+
+body.theme-matrix .info-label,
+body.theme-matrix .footer-label,
+body.theme-matrix .section-note{
+    color:#70ff9d;
+    font-size:14px;
+    font-weight:bold;
+}
+
+body.theme-matrix .status-pill{
+    color:#baffcc;
+    border-color:rgba(0,255,102,0.72);
+    font-size:14px;
+    font-weight:bold;
+}
+
+body.theme-matrix legend{
+    font-size:18px;
+    text-shadow:0 0 7px rgba(0,255,102,0.38);
+}
+
+body.theme-matrix label{
+    color:#e0ffe9;
+    font-size:17px;
+    font-weight:600;
+}
+
+body.theme-matrix label.radio,
+body.theme-matrix label.checkbox{
+    color:#c9ffd8;
+    border-color:rgba(0,255,102,0.62);
+    font-size:16px;
+    font-weight:600;
+}
+
+body.theme-matrix .conf-final-label{
+    color:#c9ffd8 !important;
+    border-color:rgba(0,255,102,0.68) !important;
+    font-size:14px !important;
+}
+
+body.theme-matrix input,
+body.theme-matrix select,
+body.theme-matrix textarea{
+    border-color:#00d957;
+    font-size:17px;
+}
+
+body.theme-matrix button{
+    border-color:#00d957;
+    font-size:15px;
+}
+
+body.theme-matrix button:disabled{
+    color:#72b989;
+    border-color:#28773f;
+}
+
+body.theme-matrix #textoResumo{
+    color:#dffff0;
+    border-color:rgba(0,255,102,0.66);
+    font-size:15px;
+}
+
+body.theme-matrix table th,
+body.theme-matrix table td{
+    border-color:rgba(0,255,102,0.62);
+}
+
+body.theme-matrix .tabela-erp{
+    font-size:14px;
+}
+
+body.theme-matrix .tabela-erp th{
+    color:#70ff9d;
+}
+
+body.theme-matrix .tabela-erp .contador,
+body.theme-matrix .contador{
+    color:#8dffad;
+    font-size:12px;
+    opacity:1;
+}
+
 /* ===== TOPO COMPATIVEL COM TODOS OS TEMAS ===== */
 
 body.theme-sap #appContainer,
@@ -956,6 +1140,19 @@ body.theme-sap .app-title{
     color:#0a3d91;
 }
 
+body.theme-sap .app-subtitle,
+body.theme-sap .info-label,
+body.theme-sap .footer-label,
+body.theme-sap .section-note{
+    color:#52657a;
+}
+
+body.theme-sap .admin-status{
+    color:#7a5a00;
+    background:#fff8d8;
+    border-color:#d2b34c;
+}
+
 body.theme-sap #appSidebar{
     background:#f7f9fc;
     border:1px solid #9e9e9e;
@@ -995,6 +1192,14 @@ body.theme-sap .status-pill{
     border:1px solid #c9d3df;
 }
 
+body.theme-sap .footer-bar{
+    padding:14px;
+    margin:18px 0 0 0;
+    background:#ffffff;
+    border:1px solid #c9d3df;
+    border-radius:8px;
+}
+
 body.theme-modern .app-header{
     background:#1e293b;
     border:1px solid #334155;
@@ -1003,6 +1208,19 @@ body.theme-modern .app-header{
 
 body.theme-modern .app-title{
     color:#60a5fa;
+}
+
+body.theme-modern .app-subtitle,
+body.theme-modern .info-label,
+body.theme-modern .footer-label,
+body.theme-modern .section-note{
+    color:#94a3b8;
+}
+
+body.theme-modern .admin-status{
+    color:#fde68a;
+    background:#29210b;
+    border-color:#a16207;
 }
 
 body.theme-modern #appSidebar{
@@ -1042,6 +1260,14 @@ body.theme-modern .status-pill{
     color:#cbd5e1;
     background:#111827;
     border:1px solid #334155;
+}
+
+body.theme-modern .footer-bar{
+    padding:14px;
+    margin:18px 0 0 0;
+    background:#111827;
+    border:1px solid #334155;
+    border-radius:8px;
 }
 
 @media screen and (max-width:900px){
@@ -1094,7 +1320,8 @@ body.theme-modern .status-pill{
 </button>
 
 <div class="app-header">
-    <div class="app-title">IW41 - Gerador de Apontamento SAP</div>
+    <div class="app-title" id="tituloApp">IW41 - Gerador de Apontamento SAP<span class="admin-status" id="statusAdminFernando">Fernando Roque - administrador</span></div>
+    <div class="app-subtitle">Apontamento de ordens e tarefas com SAP GUI Scripting</div>
 </div>
 
 <div id="appSidebar">
@@ -1115,54 +1342,68 @@ body.theme-modern .status-pill{
 </div>
 
 <div class="info-panel">
+    <span class="info-label">Ambiente</span>
     <span class="status-pill">MATRIX</span>
     <span class="status-pill">HTA LOCAL</span>
     <span class="status-pill">SAP GUI SCRIPTING</span>
-    <span class="status-pill">v1.9</span>
+    <span class="status-pill">v1.9.2</span>
 </div>
 
-<h1>Gerador de Script SAP</h1>
+<h1 id="tituloPrincipal">Gerador de Script SAP</h1>
 
 <!-- ================= DADOS GERAIS ================= -->
 <fieldset>
 <legend>[01] Dados Gerais</legend>
 
-<label>Data inicial:</label>
-<input type="text" id="dataInicial" placeholder="DDMMAAAA" maxlength="10"><br>
+<div class="form-row">
+    <label>Data inicial:</label>
+    <input type="text" id="dataInicial" placeholder="DDMMAAAA" maxlength="10">
+</div>
 
-<label>Hora inicial:</label>
-<input type="text" id="horaInicial" placeholder="HHMM" maxlength="5"><br>
+<div class="form-row">
+    <label>Hora inicial:</label>
+    <input type="text" id="horaInicial" placeholder="HHMM" maxlength="5">
+</div>
 
-<label>Centro de trabalho:</label>
-<select id="centroTrabalho">
-    <option value="">-- selecione --</option>
-    <option value="UTLME005">Carlos</option>
-    <option value="UTLME008">Fernando</option>
-    <option value="UTLME007">Pedro</option>
-    <option value="UTLRE007">Patrick</option>
-</select>
+<div class="form-row" id="areaCentroTrabalho">
+    <label>Centro de trabalho:</label>
+    <select id="centroTrabalho">
+        <option value="">-- selecione --</option>
+        <option value="UTLME006">Irving</option>
+        <option value="UTLEL001">Josdair</option>
+        <option value="UTLME007">Pedro</option>
+        <option value="UTLEL003">Pedro Michaluz</option>
+        <option value="UTLRE007">Patrick</option>
+    </select>
+</div>
 </fieldset>
 
 <!-- ================= ORDENS ================= -->
 <fieldset>
 <legend>[02] Ordens</legend>
 
-<label class="radio">
-<input type="radio" name="modoOrdem" id="modoSeq" checked>
-Sequencial
-</label>
+<div class="mode-group">
+    <label class="radio">
+    <input type="radio" name="modoOrdem" id="modoSeq" checked>
+    Sequencial
+    </label>
 
-<label class="radio" style="margin-left:20px;">
-<input type="radio" name="modoOrdem" id="modoManual">
-Manual
-</label><br><br>
+    <label class="radio">
+    <input type="radio" name="modoOrdem" id="modoManual">
+    Manual
+    </label>
+</div>
 
 <div id="areaSeq">
-<label>Ordem inicial:</label>
-<input type="text" id="ordemInicial" maxlength="8"><br>
+<div class="form-row">
+    <label>Ordem inicial:</label>
+    <input type="text" id="ordemInicial" maxlength="8">
+</div>
 
-<label>Ordem final:</label>
-<input type="text" id="ordemFinal" maxlength="8"><br>
+<div class="form-row">
+    <label>Ordem final:</label>
+    <input type="text" id="ordemFinal" maxlength="8">
+</div>
 
 </div>
 
@@ -1177,31 +1418,32 @@ Manual
 <fieldset>
 <legend>[03] Tarefas</legend>
 
-<label class="radio">
-<input type="radio" name="modoTarefa" id="modoTradicional" checked>
-Modo Tradicional (Duração por tarefa)
-</label>
+<div class="mode-group">
+    <label class="radio" id="opcaoModoTradicional">
+    <input type="radio" name="modoTarefa" id="modoTradicional" checked>
+    Modo Tradicional (Duração por tarefa)
+    </label>
 
-<label class="radio" style="margin-left:20px;">
-<input type="radio" name="modoTarefa" id="modoRandom">
-Modo Random (Tempo total da ordem)
-</label>
-
-<br><br>
+    <label class="radio">
+    <input type="radio" name="modoTarefa" id="modoRandom">
+    Modo Random (Tempo total da ordem)
+    </label>
+</div>
 
 <label class="checkbox hidden" id="areaDebug">
 <input type="checkbox" id="debugSAP">
 Debug SAP (abrir IW41 e parar na T1)
 </label>
 
+<div class="form-row">
+    <label>Total de tarefas:</label>
+    <input type="text" id="totalTarefas" maxlength="2">
+</div>
 
-<br><br>
-
-<label>Total de tarefas:</label>
-<input type="text" id="totalTarefas" maxlength="2"><br>
-
-<label id="labelDuracao">Duração por tarefa (MIN):</label>
-<input type="text" id="duracaoPadrao" maxlength="3">
+<div class="form-row">
+    <label id="labelDuracao">Duração por tarefa (MIN):</label>
+    <input type="text" id="duracaoPadrao" maxlength="3">
+</div>
 
 </fieldset>
 
@@ -1209,10 +1451,12 @@ Debug SAP (abrir IW41 e parar na T1)
 <fieldset>
 <legend>[04] Personalizacao</legend>
 
-<label class="checkbox">
-<input type="checkbox" id="ordemEletrica">
-Personalizar duração e texto por tarefa
-</label>
+<div class="mode-group">
+    <label class="checkbox">
+    <input type="checkbox" id="ordemEletrica">
+    Personalizar duração e texto por tarefa
+    </label>
+</div>
 
 <div id="areaEletrica" class="hidden">
 <div id="tabelaEletrica"></div>
@@ -1227,6 +1471,7 @@ Personalizar duração e texto por tarefa
 
 
 <div class="footer-bar">
+    <span class="footer-label">Ações do apontamento</span>
     <button id="btnGerar" onclick="gerarVBS()">GERAR SCRIPT</button>
 
     <button id="btnExecutar"
@@ -1261,9 +1506,15 @@ var modoDev = false;
 var btnAppBeta;
 var btnTema;
 var contadorCliqueDev = 0;
-var VERSAO_APP = "1.9.1";
+var VERSAO_APP = "1.9.2";
 var DECISAO_CONF_FINAL = null;
 var CALLBACK_APOS_GERAR_VBS = null;
+var CENTRO_ADMIN_FERNANDO = "UTLME008";
+var HASH_SENHA_ADMIN_FERNANDO = "36d7e75";
+var fernandoAutorizado = false;
+var GERACAO_INTERNA_RANDOM = false;
+var contadorCliqueSecreto = 0;
+var timeoutCliqueSecreto;
 var URL_VERSAO = "https://raw.githubusercontent.com/FernandoRS99/iw41app/main/version.txt";
 var URL_HTA    = "https://raw.githubusercontent.com/FernandoRS99/iw41app/main/iw41_latest.hta";
 
@@ -1276,25 +1527,201 @@ function scrollToSection(index){
     }
 }
 
-function ativarModoDev(){
+function calcularHashSenha(valor){
+    var hash = 5381;
 
-    var senha = prompt("Modo Desenvolvedor\nDigite a senha:");
+    for(var i=0;i<valor.length;i++){
+        hash = ((hash << 5) + hash) ^ valor.charCodeAt(i);
+    }
+
+    return (hash >>> 0).toString(16);
+}
+
+function obterOpcaoFernandoTemporaria(){
+    var opcoes = centroTrabalho.options;
+
+    for(var i=0;i<opcoes.length;i++){
+        if(opcoes[i].value === CENTRO_ADMIN_FERNANDO){
+            return opcoes[i];
+        }
+    }
+
+    return null;
+}
+
+function adicionarOpcaoFernandoTemporaria(){
+    if(obterOpcaoFernandoTemporaria()){
+        return;
+    }
+
+    var opcao = document.createElement("option");
+    opcao.value = CENTRO_ADMIN_FERNANDO;
+    opcao.text = "Fernando";
+    centroTrabalho.appendChild(opcao);
+}
+
+function removerOpcaoFernandoTemporaria(){
+    var opcao = obterOpcaoFernandoTemporaria();
+
+    if(opcao){
+        centroTrabalho.removeChild(opcao);
+    }
+}
+
+function podeUsarModoTradicional(){
+    return centroTrabalho.value === CENTRO_ADMIN_FERNANDO && fernandoAutorizado;
+}
+
+function aplicarPermissaoModoTarefa(){
+    var permitido = podeUsarModoTradicional();
+    var opcaoTradicional = document.getElementById("opcaoModoTradicional");
+
+    if(opcaoTradicional){
+        opcaoTradicional.style.display = permitido ? "" : "none";
+    }
+
+    if(!permitido){
+        modoTradicional.checked = false;
+        modoRandom.checked = true;
+        labelDuracao.innerText = "Tempo total da ordem (MIN):";
+        btnGerar.innerText = "GERAR RANDOM";
+    }
+
+    modoTradicional.disabled = !permitido || centroTrabalho.disabled;
+}
+
+function atualizarVisualAdministradorFernando(){
+    var areaCentro = document.getElementById("areaCentroTrabalho");
+    var statusAdmin = document.getElementById("statusAdminFernando");
+
+    if(areaCentro){
+        areaCentro.style.display = fernandoAutorizado ? "none" : "";
+    }
+
+    if(statusAdmin){
+        statusAdmin.style.display = fernandoAutorizado ? "inline-block" : "none";
+    }
+}
+
+function definirEstadoAdministradorFernando(ativo, salvarAlteracao){
+    fernandoAutorizado = ativo;
+
+    if(fernandoAutorizado){
+        adicionarOpcaoFernandoTemporaria();
+        centroTrabalho.value = CENTRO_ADMIN_FERNANDO;
+    }else{
+        centroTrabalho.value = "";
+        removerOpcaoFernandoTemporaria();
+    }
+
+    atualizarVisualAdministradorFernando();
+    aplicarPermissaoModoTarefa();
+
+    if(salvarAlteracao){
+        salvarConfig();
+    }
+}
+
+function ativarFernandoAdministrador(){
+    definirEstadoAdministradorFernando(true, true);
+    alert("Fernando ativado como administrador.");
+}
+
+function desativarFernandoAdministrador(){
+    definirEstadoAdministradorFernando(false, true);
+    alert("Modo administrador desativado.");
+}
+
+function processarCentroSelecionado(salvarAlteracao){
+    if(centroTrabalho.value !== CENTRO_ADMIN_FERNANDO){
+        fernandoAutorizado = false;
+        removerOpcaoFernandoTemporaria();
+    }
+
+    atualizarVisualAdministradorFernando();
+    aplicarPermissaoModoTarefa();
+
+    if(salvarAlteracao){
+        salvarConfig();
+    }
+}
+
+function abrirMenuSecreto(){
+    var senha = prompt("Menu secreto\nDigite a senha:");
+
+    if(senha === null){
+        return;
+    }
+
+    if(calcularHashSenha(senha) === HASH_SENHA_ADMIN_FERNANDO){
+        ativarFernandoAdministrador();
+        return;
+    }
 
     if(senha === "slim_crazy99"){
+        if(!modoDev){
+            ativarModoDev();
+        }else{
+            desativarModoDev();
+        }
 
-        modoDev = true;
-
-        // Mostra Debug SAP
-        document.getElementById("areaDebug").className = "checkbox";
-
-        // Mostra bot o APP BETA
-        btnAppBeta.style.display = "inline-block";
-
-        alert("Modo Desenvolvedor ativado.");
-
-    }else{
-        alert("Senha incorreta.");
+        return;
     }
+
+    alert("Senha incorreta.");
+}
+
+function registrarAcessoMenuSecreto(elemento){
+    if(!elemento){
+        return;
+    }
+
+    elemento.onclick = function(){
+        contadorCliqueSecreto++;
+
+        clearTimeout(timeoutCliqueSecreto);
+
+        timeoutCliqueSecreto = setTimeout(function(){
+            contadorCliqueSecreto = 0;
+        }, 5000);
+
+        if(contadorCliqueSecreto >= 5){
+            contadorCliqueSecreto = 0;
+            clearTimeout(timeoutCliqueSecreto);
+
+            if(fernandoAutorizado){
+                desativarFernandoAdministrador();
+            }else{
+                abrirMenuSecreto();
+            }
+        }
+    };
+}
+
+function bloquearModoTradicionalNaoAutorizado(){
+    if(podeUsarModoTradicional() || GERACAO_INTERNA_RANDOM){
+        return false;
+    }
+
+    aplicarPermissaoModoTarefa();
+    alert("Modo Tradicional disponivel somente para Fernando autorizado.");
+    return true;
+}
+
+centroTrabalho.onchange = function(){
+    processarCentroSelecionado(true);
+};
+
+function ativarModoDev(){
+    modoDev = true;
+
+    // Mostra Debug SAP
+    document.getElementById("areaDebug").className = "checkbox";
+
+    // Mostra bot o APP BETA
+    btnAppBeta.style.display = "inline-block";
+
+    alert("Modo Desenvolvedor ativado.");
 }
 
 
@@ -1390,6 +1817,7 @@ function salvarConfig(){
         arquivo.WriteLine("TEMA=" + document.body.className);
         arquivo.WriteLine("CENTRO=" + centroTrabalho.value);
         arquivo.WriteLine("MODO=" + (modoManual.checked ? "MANUAL" : "SEQUENCIAL"));
+        arquivo.WriteLine("ADMIN_FERNANDO=" + (fernandoAutorizado ? "1" : "0"));
 
         arquivo.Close();
 
@@ -1414,6 +1842,8 @@ function carregarConfig(){
         arquivo.Close();
 
         var linhas = conteudo.split("\n");
+        var centroSalvo = "";
+        var adminFernandoSalvo = false;
 
         for(var i=0;i<linhas.length;i++){
 
@@ -1424,7 +1854,11 @@ function carregarConfig(){
             }
 
             if(linha.indexOf("CENTRO=") === 0){
-                centroTrabalho.value = linha.replace("CENTRO=","");
+                centroSalvo = linha.replace("CENTRO=","");
+            }
+
+            if(linha.indexOf("ADMIN_FERNANDO=") === 0){
+                adminFernandoSalvo = linha.replace("ADMIN_FERNANDO=","") === "1";
             }
 
             if(linha.indexOf("MODO=") === 0){
@@ -1442,6 +1876,18 @@ function carregarConfig(){
                     areaManual.className = "hidden";
                 }
             }
+        }
+
+        if(adminFernandoSalvo){
+            definirEstadoAdministradorFernando(true, false);
+        }else{
+            definirEstadoAdministradorFernando(false, false);
+
+            if(centroSalvo !== CENTRO_ADMIN_FERNANDO){
+                centroTrabalho.value = centroSalvo;
+            }
+
+            processarCentroSelecionado(false);
         }
 
     }catch(e){
@@ -2048,6 +2494,12 @@ function solicitarEncerramentoObrigatorio(callback){
 
 modoTradicional.onclick = function(){
 
+    if(!podeUsarModoTradicional()){
+        aplicarPermissaoModoTarefa();
+        alert("Modo Tradicional disponivel somente para Fernando autorizado.");
+        return false;
+    }
+
     labelDuracao.innerText = "Duração por tarefa (MIN):";
     btnGerar.innerText = "GERAR SCRIPT";
 
@@ -2543,6 +2995,8 @@ if(modoRandom.checked){
         return false;
     }
 
+    if(bloquearModoTradicionalNaoAutorizado()) return false;
+
     if(!validar()) return false;
 
     solicitarEncerramentoObrigatorio(function(confirmado){
@@ -2562,6 +3016,8 @@ if(modoRandom.checked){
 }
 
 function gerarVBSConfirmado(){
+
+    if(bloquearModoTradicionalNaoAutorizado()) return false;
 
     montarResumo();
 
@@ -2725,12 +3181,14 @@ function novoApontamento(){
     // ===== RESTAURA CONFIGURACOES SALVAS =====
     limparTemporariosAtualizacao();
     carregarConfig();
+    processarCentroSelecionado(false);
 
     // ===== FORCA MODO TRADICIONAL COMO PADRAO VISUAL =====
     modoTradicional.checked = true;
     modoRandom.checked = false;
     labelDuracao.innerText = "Duração por tarefa (MIN):";
     btnGerar.innerText = "GERAR SCRIPT";
+    aplicarPermissaoModoTarefa();
 
     // ===== RESTAURA BOTOES =====
     btnGerar.disabled = false;
@@ -3014,14 +3472,23 @@ btnGerar.style.display = "inline-block";
 
 function executarApontamento(){
 
+    if(!modoRandom.checked || btnExecutar.style.display !== "inline-block"){
+        aplicarPermissaoModoTarefa();
+        alert("Gere o Random antes de executar o apontamento.");
+        return;
+    }
+
     // Valida novamente antes de executar
     if(!validar()) return;
 
     // Chama fluxo normal de gera  o VBS
     var estavaRandom = modoRandom.checked;
+    GERACAO_INTERNA_RANDOM = true;
     modoRandom.checked = false; // for a entrar no fluxo tradicional
 
     CALLBACK_APOS_GERAR_VBS = function(ok){
+        GERACAO_INTERNA_RANDOM = false;
+
         if(ok){
             // Esconde botoes somente se o VBS foi gerado/executado
             btnExecutar.style.display = "none";
@@ -3029,6 +3496,8 @@ function executarApontamento(){
         }else if(estavaRandom){
             modoRandom.checked = true;
         }
+
+        aplicarPermissaoModoTarefa();
     };
 
     gerarVBS();
@@ -3049,7 +3518,7 @@ function aplicarPadrao(){
 
     document.body.className = "theme-matrix";
 
-    centroTrabalho.value = "";
+    definirEstadoAdministradorFernando(false, false);
 
     modoSeq.checked = true;
     modoManual.checked = false;
@@ -3066,37 +3535,13 @@ window.onload = function(){
 
     limparTemporariosAtualizacao();
     carregarConfig();
+    processarCentroSelecionado(false);
     document.title = "Gerador Script SAP - IW41 v" + VERSAO_APP;
 
-    // ===== MODO DEV 5 CLIQUES NO TITULO =====
-var contadorClique = 0;
-var timeoutClique;
+    // ===== MENU SECRETO: 5 CLIQUES EM QUALQUER TITULO =====
+    registrarAcessoMenuSecreto(document.getElementById("tituloApp"));
+    registrarAcessoMenuSecreto(document.getElementById("tituloPrincipal"));
 
-var titulo = document.getElementsByTagName("h1")[0];
-
-if(titulo){
-    titulo.onclick = function(){
-
-        contadorClique++;
-
-        clearTimeout(timeoutClique);
-
-        timeoutClique = setTimeout(function(){
-            contadorClique = 0;
-        }, 2000);
-
-        if(contadorClique >= 5){
-
-            contadorClique = 0;
-
-            if(!modoDev){
-                ativarModoDev();
-            }else{
-                desativarModoDev();
-            }
-        }
-    };
-}
 verificarAtualizacao();
 };
 </script>
