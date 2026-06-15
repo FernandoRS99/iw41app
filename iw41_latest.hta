@@ -1506,7 +1506,7 @@ var modoDev = false;
 var btnAppBeta;
 var btnTema;
 var contadorCliqueDev = 0;
-var VERSAO_APP = "1.9.2";
+var VERSAO_APP = "1.9.3";
 var DECISAO_CONF_FINAL = null;
 var CALLBACK_APOS_GERAR_VBS = null;
 var CENTRO_ADMIN_FERNANDO = "UTLME008";
@@ -2522,6 +2522,43 @@ function atualizarContador(inp,id){
     c.className=(inp.value.length>=40)?"contador limite":"contador";
 }
 
+function sanitizarTextoConfirmacao(valor){
+    var texto = valor || "";
+    var limpo = "";
+    var ch;
+
+    for(var i=0;i<texto.length && limpo.length<40;i++){
+        ch = texto.charAt(i);
+
+        if(
+            (ch >= "A" && ch <= "Z") ||
+            (ch >= "a" && ch <= "z") ||
+            (ch >= "0" && ch <= "9") ||
+            ch === " " ||
+            ch === "." ||
+            ch === "-" ||
+            ch === "/"
+        ){
+            limpo += ch;
+        }
+    }
+
+    return limpo;
+}
+
+function normalizarTextoConfirmacao(inp,id){
+    if(!inp) return "";
+
+    var limpo = sanitizarTextoConfirmacao(inp.value);
+
+    if(inp.value !== limpo){
+        inp.value = limpo;
+    }
+
+    atualizarContador(inp,id);
+    return limpo;
+}
+
 function gerarTabela(){
 
     var t = parseInt(totalTarefas.value,10);
@@ -2548,7 +2585,11 @@ function gerarTabela(){
 
         h += "<td class='col-texto'>";
         h += "<input type='text' id='txt_"+i+"' maxlength='40' ";
-        h += "onkeyup=\"atualizarContador(this,'cnt_"+i+"')\">";
+        h += "title='Use apenas letras, numeros, espaco, ponto (.), hifen (-) e barra (/). Ex: 1/2 pol.' ";
+        h += "onkeyup=\"normalizarTextoConfirmacao(this,'cnt_"+i+"')\" ";
+        h += "onblur=\"normalizarTextoConfirmacao(this,'cnt_"+i+"')\" ";
+        h += "onchange=\"normalizarTextoConfirmacao(this,'cnt_"+i+"')\" ";
+        h += "onpaste=\"var campo=this;window.setTimeout(function(){normalizarTextoConfirmacao(campo,'cnt_"+i+"');},1)\">";
         h += "<div id='cnt_"+i+"' class='contador'>0/40</div>";
         h += "</td>";
 
@@ -3083,9 +3124,13 @@ function gerarVBSConfirmado(){
         for(var i=1;i<=total;i++){
             var t=document.getElementById("txt_"+i);
             var d=document.getElementById("dur_"+i);
-            if (t && t.value.replace(/^\s+|\s+$/g,"") !== ""){
-                vbs+="MAPA_TEXTO_ELETRICO.Add "+i+", \""+t.value+"\"\n";
-                log+="TEXTO_"+i+"="+t.value+"\n";
+            var textoLimpo = "";
+            if(t){
+                textoLimpo = normalizarTextoConfirmacao(t,"cnt_"+i);
+            }
+            if (textoLimpo.replace(/^\s+|\s+$/g,"") !== ""){
+                vbs+="MAPA_TEXTO_ELETRICO.Add "+i+", \""+textoLimpo+"\"\n";
+                log+="TEXTO_"+i+"="+textoLimpo+"\n";
             }
             if(d&&d.value!==""){
                 vbs+="MAPA_DURACAO_TAREFA.Add "+i+", "+d.value+"\n";
